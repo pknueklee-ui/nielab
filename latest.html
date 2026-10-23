@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIE LAB Latest publications</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scrollbar-width:none}
+</style>
+<script>
+// Sites 삽입 상자는 폭에 비례해 높이가 바뀐다 → 넓은 화면은 1068px 기준으로 같은 비율로 확대·축소, 휴대폰은 옆으로 넘기는 카드
+if(window!==top){const wide=innerWidth>=700,z=()=>document.documentElement.style.zoom=innerWidth>=700?innerWidth/1068:1;z();addEventListener("resize",z);
+  if(wide)addEventListener("DOMContentLoaded",()=>[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule)s.deleteRule(i)}catch(e){}}))}
+</script>
+<style>html::-webkit-scrollbar{display:none}
+body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding:4px 8px 12px}
+.hd{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 18px}
+.hd h2{font-family:Oswald,sans-serif;font-weight:400;font-size:30px;text-transform:uppercase;letter-spacing:.5px}
+.hd h2 b{color:#0000ff;font-weight:700}
+.hd a{font-family:Oswald,sans-serif;font-size:17px;color:#0000ff}
+.hd a:hover{text-decoration:underline}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.c{display:flex;flex-direction:column;border:1px solid #e6e6e6;border-radius:6px;overflow:hidden;transition:box-shadow .2s,transform .2s;background:#fff}
+.c:hover{box-shadow:0 6px 18px rgba(0,0,0,.12);transform:translateY(-2px)}
+.c .im{height:210px;background:#fafafa;display:flex;align-items:center;justify-content:center;border-bottom:1px solid #eee}
+.c .im img{max-width:100%;max-height:100%;object-fit:contain}
+.c .tx{padding:14px 16px 16px}
+.c .meta{font-size:12.5px;color:#757575;margin-bottom:6px}
+.c .meta i{color:#212121}
+.c .ti{font-weight:700;font-size:15px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ld{display:flex;align-items:center;justify-content:center;gap:12px;height:300px;font-family:Oswald,sans-serif;font-size:22px;color:#616161}
+.sp{width:26px;height:26px;border:3px solid #e0e0e0;border-top-color:#0000ff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:700px){
+  .hd{margin:0 0 8px}.hd h2{font-size:20px}.hd a{font-size:14px}
+  .cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;scrollbar-width:none;padding-bottom:2px}
+  .cards::-webkit-scrollbar{display:none}
+  .c{flex:0 0 86%;flex-direction:row;scroll-snap-align:start}
+  .c .im{flex:0 0 108px;height:auto;min-height:118px;border-bottom:0;border-right:1px solid #eee}
+  .c .tx{padding:8px 10px}.c .meta{font-size:11px;margin-bottom:3px}.c .ti{font-size:12.5px;-webkit-line-clamp:4}
+  .ld{height:120px;font-size:18px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hd"><h2><b>L</b>atest publications</h2><a href="https://sites.google.com/view/nielab/publications/journal-papers" target="_top" id="all">View all →</a></div>
+  <div class="cards" id="cards"><div class="ld"><span class="sp"></span>Loading…</div></div>
+</div>
+<script>
+// 대문용: Publications 웹앱 JSON(시트 「NIE LAB Publications」, 매일 갱신)에서 맨 위 3편을 카드로 보여 준다
+const API='https://script.google.com/macros/s/AKfycbwQ1zLyqlhWx-5i-VVdNoP1oInUUhwnRqPiLEOHH3Gw50bw8Gat0yg9bvZ90tz4OpHWyw/exec?type=pubs';
+const N=3;
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+fetch(API).then(r=>r.json()).then(d=>{
+  document.getElementById('all').textContent=`View all ${d.total} →`;
+  document.getElementById('cards').innerHTML=d.pubs.slice(0,N).map(p=>
+    `<a class="c" href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">
+      <div class="im">${p.img?`<img src="${p.img}" alt="">`:''}</div>
+      <div class="tx"><div class="meta"><i>${esc(p.j)}</i> · ${p.y}</div><div class="ti">${esc(p.t)}</div></div></a>`).join('');
+}).catch(()=>{document.getElementById('cards').innerHTML='<div class="ld">Could not load. Please refresh the page.</div>'});
+</script>
+</body>
+</html>

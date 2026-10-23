@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIE LAB Join us</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scrollbar-width:none}
+</style>
+<script>
+// Sites 삽입 상자는 폭에 비례해 높이가 바뀐다 → 넓은 화면은 1068px 기준으로 같은 비율로 확대·축소, 휴대폰은 원래 크기의 휴대폰 배치
+if(window!==top){const wide=innerWidth>=700,z=()=>document.documentElement.style.zoom=innerWidth>=700?innerWidth/1068:1;z();addEventListener("resize",z);
+  if(wide)addEventListener("DOMContentLoaded",()=>[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule)s.deleteRule(i)}catch(e){}}))}
+</script>
+<style>html::-webkit-scrollbar{display:none}
+body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
+a{color:#0000ff}
+.wrap{max-width:1160px;margin:0 auto;padding:4px 8px 32px}
+.pt{text-align:center;margin:6px 0 30px}.pt h1{font-family:Oswald,sans-serif;font-weight:400;font-size:58px;line-height:1.15;display:inline-block;padding:0 48px 4px;border-bottom:8px solid #ff5252}
+.lead{text-align:center;font-size:18px;line-height:1.6;margin:0 auto 6px;max-width:860px}
+.lead b{color:#0000ff}
+.ko{text-align:center;font-size:15px;color:#616161;line-height:1.6;margin:0 auto 40px;max-width:820px}
+h2{font-family:Oswald,sans-serif;font-weight:400;font-size:30px;text-transform:uppercase;margin:44px 0 6px}
+h2 b{color:#0000ff;font-weight:700}
+.rule{width:56px;height:4px;background:#ff5252;margin:0 0 22px}
+.nums{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;text-align:center}
+.nums div{border:1px solid #eee;border-radius:6px;padding:18px 8px}
+.nums b{display:block;font-family:Oswald,sans-serif;font-size:46px;color:#0000ff;line-height:1.1}
+.nums span{font-size:14px;color:#616161}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.card{border:1px solid #eee;border-radius:6px;padding:18px 20px}
+.card h3{font-size:17px;margin-bottom:6px}
+.card p{font-size:14px;line-height:1.6}
+.card .k{font-size:13px;color:#757575;margin-top:4px}
+.pos{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.pos div{border-left:4px solid #0000ff;background:#f7f8ff;padding:14px 14px;border-radius:0 6px 6px 0}
+.pos b{display:block;font-size:16px;margin-bottom:4px}
+.pos span{font-size:13px;color:#555;line-height:1.5}
+.alm{display:flex;flex-wrap:wrap;gap:10px}
+.alm span{border:1px solid #d6dbff;background:#f7f8ff;border-radius:20px;padding:7px 16px;font-size:14.5px}
+.alm span i{font-style:normal;color:#0000ff;font-weight:700;margin-left:6px}
+ol.ap{padding-left:22px;font-size:15px;line-height:1.9}
+.mail{display:inline-block;margin-top:16px;background:#0000ff;color:#fff;text-decoration:none;font-family:Oswald,sans-serif;font-size:19px;letter-spacing:.5px;padding:10px 26px;border-radius:4px}
+.mail:hover{background:#0000c8}
+.note{font-size:13px;color:#757575;margin-top:12px;line-height:1.6}
+@media(max-width:700px){
+  .pt h1{font-size:38px;padding:0 20px 2px;border-bottom-width:6px}
+  .lead{font-size:15.5px}.ko{font-size:13.5px;margin-bottom:26px}
+  h2{font-size:24px;margin-top:32px}
+  .nums b{font-size:34px}.nums span{font-size:12px}.nums{gap:8px}
+  .grid,.pos{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="pt"><h1>JOIN US</h1></div>
+  <p class="lead">We look for <b>curious students</b> who want to understand what happens where two materials meet — and turn it into <b>real devices</b>.</p>
+  <p class="ko">서로 다른 물질이 만나는 곳에서 무슨 일이 일어나는지 궁금하고, 그것을 실제 소자로 만들어 보고 싶은 학생을 찾습니다.</p>
+
+  <div class="nums">
+    <div><b id="nP">–</b><span>Journal publications</span></div>
+    <div><b id="nM">–</b><span>Current members</span></div>
+    <div><b id="nA">–</b><span>Alumni</span></div>
+  </div>
+
+  <h2><b>O</b>pen positions</h2><div class="rule"></div>
+  <div class="pos">
+    <div><b>M.S.</b><span>석사과정</span></div>
+    <div><b>Ph.D.</b><span>박사과정</span></div>
+    <div><b>Integrated M.S.–Ph.D.</b><span>석박사통합과정</span></div>
+    <div><b>Undergraduate intern</b><span>학부연구생 (언제든 문의)</span></div>
+  </div>
+
+  <h2><b>W</b>hat you will learn</h2><div class="rule"></div>
+  <div class="grid">
+    <div class="card"><h3>Device fabrication</h3><p>Organic electrochemical transistors, field-effect transistors, neuromorphic devices and wearable sensors — from solution to working device.</p><p class="k">유기 전기화학 트랜지스터·전계효과 트랜지스터·뉴로모픽 소자·웨어러블 센서 제작</p></div>
+    <div class="card"><h3>Materials design</h3><p>Conjugated polymers, ion gels, dopants and interlayers: how molecules order, how ions diffuse, and how interfaces control both.</p><p class="k">전도성 고분자·이온겔·도펀트·계면층 설계</p></div>
+    <div class="card"><h3>Characterization &amp; analysis</h3><p>Electrical measurements, spectroscopy and microscopy, and the physical chemistry to explain what you see.</p><p class="k">전기적 측정·분광·현미경 분석과 물리화학적 해석</p></div>
+    <div class="card"><h3>Writing &amp; presenting</h3><p>Students write their own papers as first authors and present at international and domestic conferences.</p><p class="k">주저자 논문 작성과 국내외 학회 발표</p></div>
+  </div>
+
+  <h2><b>W</b>here our alumni are</h2><div class="rule"></div>
+  <div class="alm" id="alm"><span>Loading…</span></div>
+
+  <h2><b>H</b>ow to apply</h2><div class="rule"></div>
+  <ol class="ap">
+    <li>CV (이력서)</li>
+    <li>Transcript (성적증명서)</li>
+    <li>A few lines on what you want to study (관심 연구 주제를 몇 줄로)</li>
+  </ol>
+  <a class="mail" href="mailto:eklee@pknu.ac.kr?subject=%5BNIE%20LAB%5D%20Application" target="_top">eklee@pknu.ac.kr</a>
+  <p class="note">Office: Room 1106, Engineering Building 1, Daeyeon Campus · Lab: Room 301, Building 13, Yongdang Campus, Pukyong National University<br>학부생은 공학1관 1106호로 직접 찾아와도 좋습니다.</p>
+</div>
+<script>
+// 숫자·졸업생 진로는 Apps Script 웹앱에서 자동으로 받는다(멤버: ?type=stats, 논문: ?type=pubs)
+const API='https://script.google.com/macros/s/AKfycbwQ1zLyqlhWx-5i-VVdNoP1oInUUhwnRqPiLEOHH3Gw50bw8Gat0yg9bvZ90tz4OpHWyw/exec';
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+fetch(API+'?type=stats').then(r=>r.json()).then(d=>{
+  const c=d.count||{};
+  document.getElementById('nM').textContent=(c['Research Professor']||0)+(c['Students']||0);
+  document.getElementById('nA').textContent=c['Alumni']||0;
+  const a=Object.entries(d.affil||{}).sort((x,y)=>y[1]-x[1]);
+  document.getElementById('alm').innerHTML=a.map(([k,n])=>`<span>${esc(k)}${n>1?`<i>×${n}</i>`:''}</span>`).join('');
+}).catch(()=>{document.getElementById('alm').innerHTML=''});
+fetch(API+'?type=pubs').then(r=>r.json()).then(d=>{document.getElementById('nP').textContent=d.total}).catch(()=>{});
+</script>
+</body>
+</html>
