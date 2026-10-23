@@ -137,5 +137,16 @@ fetch(API+'?type=pubs').then(r=>r.json()).then(d=>{document.getElementById('nP')
   let t;new ResizeObserver(()=>{clearTimeout(t);t=setTimeout(mk,400)}).observe(document.body);mk();
 })();
 </script>
+<style>
+#more{position:fixed;left:0;right:0;bottom:0;height:64px;padding-top:30px;text-align:center;font-family:Oswald,sans-serif;font-size:15px;letter-spacing:.5px;color:#0000ff;background:linear-gradient(rgba(255,255,255,0),#fff 55%);pointer-events:none;opacity:0;transition:opacity .2s;z-index:19}
+#more.on{opacity:1}
+</style>
+<script>
+// 휴대폰: 사이트 상자가 내용보다 짧아 상자 안을 밀어 내려야 한다 → 끝에 닿기 전까지 아래에 안내를 띄운다
+(()=>{if(window===top)return;const m=document.createElement('div');m.id='more';m.textContent='Scroll for more ↓';document.body.appendChild(m);
+  const f=()=>{const d=document.documentElement;m.classList.toggle('on',d.classList.contains('compact')&&scrollY+innerHeight<d.scrollHeight-40)};
+  addEventListener('scroll',f,{passive:true});addEventListener('resize',f);new ResizeObserver(f).observe(document.body);f();
+})();
+</script>
 </body>
 </html>
