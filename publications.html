@@ -41,7 +41,9 @@ h2 small{font-family:"Open Sans";font-size:14px;color:#9e9e9e;margin-left:10px;t
     <div class="total" id="total">Loading…</div>
     <div class="links">
       <a href="https://scholar.google.com/citations?user=_ME8VaYAAAAJ" target="_blank" rel="noopener">Google Scholar</a> ·
-      <a href="https://orcid.org/0000-0001-5727-5716" target="_blank" rel="noopener">ORCID</a><br>
+      <a href="https://orcid.org/0000-0001-5727-5716" target="_blank" rel="noopener">ORCID</a> ·
+      <a href="https://www.researchgate.net/profile/Eun-Lee-52/publications" target="_blank" rel="noopener">ResearchGate</a><br>
+      <span class="legend" id="upd"></span><br>
       <span class="legend">* Corresponding author &nbsp; † Co-first author</span>
     </div>
   </div>
@@ -66,6 +68,7 @@ function item(p,n,withImg){
 function draw(d){
   const ps=d.pubs; let n=ps.length;
   document.getElementById('total').innerHTML=`<b>${ps.length}</b> Journal publications`;
+  document.getElementById('upd').textContent=`Updated on ${d.updated}`;
   const years=[...new Set(ps.filter(p=>p.y>=SPLIT).map(p=>p.y))].sort((a,b)=>b-a);
   const old=ps.filter(p=>p.y<SPLIT);
   document.getElementById('nav').innerHTML=years.map(y=>`<a href="#y${y}">${y}</a>`).join('')+(old.length?`<a href="#before">Before ${SPLIT}</a>`:'');
