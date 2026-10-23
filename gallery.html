@@ -4,12 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>NIE LAB Gallery</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Caveat:wght@700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Caveat:wght@700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scrollbar-width:none}
 </style>
 <script>
+// Sites 삽입 상자는 폭에 비례해 높이가 바뀐다 → 넓은 화면은 1068px 기준으로 같은 비율로 확대·축소, 휴대폰은 원래 크기의 휴대폰 배치
 if(window!==top){
   // 사이트 삽입 상자는 폭에 비례해 높이가 바뀌고, 처음엔 좁게 떴다가 넓어지기도 한다 → 폭이 바뀔 때마다 다시 맞춘다
   // 넓은 화면(≥700): 1068px 기준으로 확대·축소하고 휴대폰용 @media 규칙을 끈다 / 휴대폰: 원래 크기 + 휴대폰 배치(.compact)
@@ -23,120 +24,90 @@ if(window!==top){
 }
 </script>
 <style>html::-webkit-scrollbar{display:none}
-/* Google Sites에서 옮긴 페이지: 글자 크기·간격은 원래 사이트 값(본문 Open Sans 17.3px, 제목 Oswald 50.7px) */
 body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
-a{color:inherit}
-.wrap{max-width:1068px;margin:0 auto;padding:4px 0 32px}
-.pt{text-align:center;margin:6px 0 30px}.pt h1{font-family:Oswald,sans-serif;font-weight:400;font-size:58px;line-height:1.15;color:#212121;display:inline-block;padding:0 48px 4px;border-bottom:8px solid #ff5252;text-transform:uppercase}
-.row{display:flex;align-items:flex-start}
-.col{min-width:0}
-.tx p{font-size:17.33px;line-height:1.38;margin:16px 0}
-.tx p:first-child{margin-top:0}.tx p:last-child{margin-bottom:0}
-.tx h1{font-family:Oswald,sans-serif;font-weight:400;font-size:50.67px;line-height:1.23;text-transform:uppercase;color:#1f1f1f}
-.tx h2{font-family:Oswald,sans-serif;font-weight:400;font-size:34px;line-height:1.25;text-transform:uppercase;color:#1f1f1f}
-.tx h3{font-size:18px;font-weight:700}
-.tx ul,.tx ol{padding-left:28px}
-.im img{width:100%;height:auto;display:block}
-iframe.emb{width:100%;border:0;display:block}
-.tx span[style*="Caveat"]{font-size:66.67px;line-height:1.6}
-.card a{display:block;text-decoration:none;color:#212121}
-.card img{width:100%;aspect-ratio:600/315;object-fit:cover;display:block}
-.card .ct{display:block;color:#f34f4c;font-size:24px;line-height:1.3;margin-top:10px}
-.card .cs{display:block;font-size:17.33px;line-height:1.6}
-@media(max-width:700px){
-  .pt h1{font-size:34px;padding:0 16px 2px;border-bottom-width:6px}
-  .wrap{padding:4px 14px 24px}
-  .row{flex-direction:column;margin-top:18px!important}
-  .col{flex:1 1 auto!important;margin-left:0!important;width:100%}
-  .col+.col{margin-top:14px}
-  .tx p{font-size:15px}.tx h1{font-size:32px}
-  .tx span[style*="Caveat"]{font-size:40px}.card .ct{font-size:18px}.card .cs{font-size:14px}
-}
+.wrap{max-width:1160px;margin:0 auto;padding:4px 8px 32px}
+.pt{text-align:center;margin:6px 0 22px}.pt h1{font-family:Oswald,sans-serif;font-weight:400;font-size:58px;line-height:1.15;display:inline-block;padding:0 48px 4px;border-bottom:8px solid #ff5252}
+.yrs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:6px}
+.yrs button{font-family:Oswald,sans-serif;font-size:19px;background:#fff;border:1px solid #d6dbff;color:#0000ff;border-radius:20px;padding:5px 18px;cursor:pointer;text-align:center;line-height:1.2}
+.yrs button small{display:block;font-family:"Open Sans",Arial,sans-serif;font-size:11px;color:#757575}
+.yrs button.on{background:#0000ff;color:#fff;border-color:#0000ff}.yrs button.on small{color:#dfe3ff}
+.mem{font-family:Caveat,cursive;font-size:56px;line-height:1.3;margin:10px 0 8px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px 20px}
+.ev{display:block;width:100%;cursor:pointer;background:none;border:0;text-align:left;font:inherit;color:inherit}
+.ev .cv{display:block;position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:6px;background:#f2f2f2}
+.ev img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+.ev:hover img{transform:scale(1.04)}
+.ev .n{position:absolute;right:8px;bottom:8px;background:rgba(0,0,0,.6);color:#fff;font-size:12.5px;border-radius:12px;padding:2px 9px}
+.ev .t{display:block;color:#f34f4c;font-size:19px;line-height:1.3;margin-top:9px}
+.ev .d{display:block;font-size:14px;color:#757575;margin-top:2px}
+.pg{text-align:center;margin-top:26px}
+.pg button{font-family:Oswald,sans-serif;font-size:17px;border:1px solid #ddd;background:#fff;border-radius:4px;width:38px;height:36px;margin:0 3px;cursor:pointer}
+.pg button.on{background:#212121;color:#fff;border-color:#212121}
+.msg{text-align:center;color:#757575;font-size:16px;padding:60px 0}
+#lb{position:fixed;left:0;right:0;top:0;bottom:0;background:rgba(0,0,0,.92);z-index:30;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff}
+#lb.on{display:flex}
+#lb img{max-width:92%;max-height:calc(100% - 110px);object-fit:contain;border-radius:3px}
+#lb .cap{margin-top:12px;font-size:15px;text-align:center;padding:0 60px}
+#lb .cap a{color:#9fb0ff;font-size:13px;margin-left:10px}
+#lb button{position:absolute;background:rgba(255,255,255,.12);border:0;color:#fff;font-size:30px;width:52px;height:52px;border-radius:50%;cursor:pointer}
+#lb .x{top:14px;right:14px;font-size:26px}#lb .pv{left:14px;top:calc(50% - 26px)}#lb .nx{right:14px;top:calc(50% - 26px)}
+.compact .pt h1{font-size:32px;padding:0 24px 2px;border-bottom-width:6px}.compact .pt{margin-bottom:14px}
+.compact .grid{grid-template-columns:1fr 1fr;gap:14px 10px}.compact .ev .t{font-size:15px}.compact .ev .d{font-size:12px}
+.compact .mem{font-size:36px}.compact .yrs button{font-size:16px;padding:4px 12px}
+@media(max-width:700px){.grid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
-<div class="pt"><h1><span>Gallery</span></h1></div>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><div class="tx"><p><span style="font-family: Caveat, Arial; font-weight: 700; vertical-align: baseline;">Memories in 2025</span></p></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i01.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><div class="tx"><p><span style="font-family: Caveat, Arial; font-variant: normal; font-weight: 700; vertical-align: baseline;">Memories in 2024</span></p></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i02.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i03.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i04.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i05.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i06.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i07.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i08.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i09.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 23.06%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i10.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 74.39%;margin-left:2.55%"><div class="im"><img src="images/site/gallery/i11.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i12.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i13.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i14.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i15.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i16.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i17.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><div class="tx"><p><span style="font-family: Caveat, Arial; font-variant: normal; font-weight: 700; vertical-align: baseline;">Memories in </span><span style="font-family: Caveat, Arial; font-weight: 700; vertical-align: baseline;">2023</span></p></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i18.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i19.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i20.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i21.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i22.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i23.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i24.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i25.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="card"><a href="https://photos.app.goo.gl/mfPxZJm2DZmZ9EhK8" target="_blank" rel="noopener"><img src="images/site/gallery/i26.jpg" alt="" loading="lazy"><span class="ct">2023.02.27 NIE Lab member at a studio</span><span class="cs">New item added to shared album</span></a></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i27.jpg" alt="" loading="lazy"></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="card"><a href="https://photos.app.goo.gl/Q2LchvVjFb2Z82Qi9" target="_blank" rel="noopener"><img src="images/site/gallery/i28.jpg" alt="" loading="lazy"><span class="ct">2023.02.17 Lab dinner</span><span class="cs">New item added to shared album</span></a></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="card"><a href="https://photos.app.goo.gl/w9YqLTvoPUJ6raBAA" target="_blank" rel="noopener"><img src="images/site/gallery/i29.jpg" alt="" loading="lazy"><span class="ct">2023.02.27 In front of Lab building</span><span class="cs">2 new items added to shared album</span></a></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="card"><a href="https://photos.app.goo.gl/3rVGKsbVFsoD8Eyp8" target="_blank" rel="noopener"><img src="images/site/gallery/i30.jpg" alt="" loading="lazy"><span class="ct">2023.02.09 Capstone design / Grand prize, Team Park</span><span class="cs">New item added to shared album</span></a></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="card"><a href="https://photos.app.goo.gl/zTbn4HpYshdSEbsDA" target="_blank" rel="noopener"><img src="images/site/gallery/i31.jpg" alt="" loading="lazy"><span class="ct">2023.02.02 Lab workshop, Busan Songjeong Beach</span><span class="cs">2 new items added to shared album</span></a></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="card"><a href="https://photos.app.goo.gl/afWFdg6VykrRLujKA" target="_blank" rel="noopener"><img src="images/site/gallery/i32.jpg" alt="" loading="lazy"><span class="ct">2023.02.09 Lab meeting</span><span class="cs">3 new items added to shared album</span></a></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="card"><a href="https://photos.app.goo.gl/qyU1ENyYg1SrjY25A" target="_blank" rel="noopener"><img src="images/site/gallery/i33.jpg" alt="" loading="lazy"><span class="ct">2023.01.27 Lab dinner</span><span class="cs">New item added to shared album</span></a></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="card"><a href="https://photos.app.goo.gl/sNd5oRZZQZWCJLmu7" target="_blank" rel="noopener"><img src="images/site/gallery/i34.jpg" alt="" loading="lazy"><span class="ct">2023.01.05 Lab meeting</span><span class="cs">2 new items added to shared album</span></a></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="card"><a href="https://photos.app.goo.gl/rjKTaZSdRDdnS6iv7" target="_blank" rel="noopener"><img src="images/site/gallery/i35.jpg" alt="" loading="lazy"><span class="ct">2023.01.12 Lab meeting</span><span class="cs">2 new items added to shared album</span></a></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><div class="tx"><p><span style="font-family: Caveat, Arial; font-variant: normal; font-weight: 700; vertical-align: baseline;">Memories in 202</span><span style="font-family: Caveat, Arial; font-weight: 700; vertical-align: baseline;">2</span></p></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:24px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 40.14%;margin-left:0.00%"><div class="card"><a href="https://photos.app.goo.gl/SksFBSWCL9SNr5wp9" target="_blank" rel="noopener"><img src="images/site/gallery/i36.jpg" alt="" loading="lazy"><span class="ct">2022.12.29 Lab meeting</span><span class="cs">2 new items added to shared album</span></a></div><div class="card"><a href="https://photos.app.goo.gl/2fvrxiL37BzzNg6j9" target="_blank" rel="noopener"><img src="images/site/gallery/i37.jpg" alt="" loading="lazy"><span class="ct">2022.12.28 Capstone design Award</span><span class="cs">2 new items added to shared album</span></a></div></div><div class="col" style="flex:0 0 23.06%;margin-left:2.55%"><div class="card"><a href="https://photos.app.goo.gl/iRuxsgd5Hyr62piB7" target="_blank" rel="noopener"><img src="images/site/gallery/i38.jpg" alt="" loading="lazy"><span class="ct">2022.10.27 화학공학회 참석</span><span class="cs">4 new items added to shared album</span></a></div><div class="card"><a href="https://photos.app.goo.gl/Temh4j5Xt4j2mvo6A" target="_blank" rel="noopener"><img src="images/site/gallery/i39.jpg" alt="" loading="lazy"><span class="ct">2022.10.18 Experimenting</span><span class="cs">2 new items added to shared album</span></a></div></div><div class="col" style="flex:0 0 31.60%;margin-left:2.65%"><div class="card"><a href="https://photos.app.goo.gl/oCd6FvBMe8zwBQMu8" target="_blank" rel="noopener"><img src="images/site/gallery/i40.jpg" alt="" loading="lazy"><span class="ct">2022.11.28 Experimenting</span><span class="cs">4 new items added to shared album</span></a></div><div class="card"><a href="https://photos.app.goo.gl/NEnpsePrXXaiuupx9" target="_blank" rel="noopener"><img src="images/site/gallery/i41.jpg" alt="" loading="lazy"><span class="ct">2022.08.25 Lab meeting and dinner</span><span class="cs">3 new items added to shared album</span></a></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="card"><a href="https://photos.app.goo.gl/W2ttbjGFjKxUCp178" target="_blank" rel="noopener"><img src="images/site/gallery/i42.jpg" alt="" loading="lazy"><span class="ct">2022.08.11 Lab meeting and lab designing</span><span class="cs">4 new items added to shared album</span></a></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="card"><a href="https://photos.app.goo.gl/yrz55gNBzL3V8PC28" target="_blank" rel="noopener"><img src="images/site/gallery/i43.jpg" alt="" loading="lazy"><span class="ct">2022.07.27 Lab designing, Yellow room for photolithography</span><span class="cs">6 new items added to shared album</span></a></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:26px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="card"><a href="https://photos.app.goo.gl/zDPahDBeRdBR51wX6" target="_blank" rel="noopener"><img src="images/site/gallery/i44.jpg" alt="" loading="lazy"><span class="ct">2022.08.04 Lab dinner</span><span class="cs">3 new items added to shared album</span></a></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="card"><a href="https://photos.app.goo.gl/3oanY6jQLHLWz7Rd7" target="_blank" rel="noopener"><img src="images/site/gallery/i45.jpg" alt="" loading="lazy"><span class="ct">2022.07.20 Lab meeting and lab designing</span><span class="cs">4 new items added to shared album</span></a></div></div></div>
-<div class="row" style="margin-top:26px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="card"><a href="https://photos.app.goo.gl/pNgPFftSNsb3Zw6o8" target="_blank" rel="noopener"><img src="images/site/gallery/i46.jpg" alt="" loading="lazy"><span class="ct">2022.06.09 Student office designing</span><span class="cs">5 new items added to shared album</span></a></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="card"><a href="https://photos.app.goo.gl/RKzMVcrAhG88jZKH8" target="_blank" rel="noopener"><img src="images/site/gallery/i47.jpg" alt="" loading="lazy"><span class="ct">2022.07.14 Lab meeting and dinner</span><span class="cs">3 new items added to shared album</span></a></div></div></div>
-</section>
-<section class="sec" style="padding-bottom:25px">
-<div class="row" style="margin-top:25px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="card"><a href="https://photos.app.goo.gl/waLVKJq7rsjAQ9hF8" target="_blank" rel="noopener"><img src="images/site/gallery/i48.jpg" alt="" loading="lazy"><span class="ct">2022.05.16 Lab designing</span><span class="cs">3 new items added to shared album</span></a></div></div></div>
-</section>
+  <div class="pt"><h1>GALLERY</h1></div>
+  <div class="yrs" id="yrs"></div>
+  <div id="out"><p class="msg">Loading…</p></div>
 </div>
+<div id="lb"><button class="x" aria-label="Close">✕</button><button class="pv" aria-label="Previous">‹</button><button class="nx" aria-label="Next">›</button><img alt=""><p class="cap"></p></div>
+<script>
+// 행사·사진은 Apps Script 웹앱(?type=gallery)이 「Gallery albums」 탭의 구글 포토 공유 앨범을 매일 읽어 날짜별로 묶어 준다.
+// 이름·공개 여부는 「NIE LAB Publications」 시트의 Gallery 탭에서 고친다.
+const API='https://script.google.com/macros/s/AKfycbwQ1zLyqlhWx-5i-VVdNoP1oInUUhwnRqPiLEOHH3Gw50bw8Gat0yg9bvZ90tz4OpHWyw/exec';
+// 앨범 없이 옛 갤러리에 올라 있던 사진(날짜 미상 → 연도만)
+const G='images/site/gallery/i';
+const OLD=[
+  ['2025','Graduation',[1]],
+  ['2024','Lab photo',[2,3]],['2024','Conference',[5,6]],['2024','Cherry blossom outing',[7]],['2024','Bowling night',[8,13]],
+  ['2024','Lab dinner',[12,14]],['2024','Lab seminar',[4,9,11,15,16,17]],['2024','Experimenting',[10]],
+  ['2023','Industry–Academia Cooperation EXPO award',[19]],['2023','Lab workshop',[22,23,24]],['2023','Lab dinner',[18,21]],['2023','Lab seminar',[20,25]]
+].map(([d,n,ids])=>({d,n,ph:ids.map(i=>[G+String(i).padStart(2,'0')+'.jpg'])}));
+const PER=12,esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const sz=(u,s)=>/googleusercontent/.test(u)?u+'='+s:u;
+let EV=[],year,page=0;
+function show(){
+  const list=EV.filter(e=>e.d.slice(0,4)===year),pages=Math.ceil(list.length/PER);
+  document.querySelectorAll('#yrs button').forEach(b=>b.classList.toggle('on',b.dataset.y===year));
+  document.getElementById('out').innerHTML='<p class="mem">Memories in '+year+'</p><div class="grid">'+
+    list.slice(page*PER,page*PER+PER).map(e=>`<button class="ev" data-i="${EV.indexOf(e)}"><span class="cv"><img src="${esc(sz(e.ph[0][0],'w640-h480-c'))}" alt="" loading="lazy"><span class="n">${e.ph.length} photo${e.ph.length>1?'s':''}</span></span><span class="t">${esc(e.n||e.d)}</span><span class="d">${e.d.length>4?esc(e.d):''}</span></button>`).join('')+'</div>'+
+    (pages>1?'<div class="pg">'+Array.from({length:pages},(_,i)=>`<button data-p="${i}" class="${i===page?'on':''}">${i+1}</button>`).join('')+'</div>':'');
+}
+document.getElementById('yrs').onclick=e=>{const b=e.target.closest('button');if(b){year=b.dataset.y;page=0;show()}};
+document.getElementById('out').onclick=e=>{const p=e.target.closest('.pg button'),v=e.target.closest('.ev');
+  if(p){page=+p.dataset.p;show();document.querySelector('.wrap').scrollIntoView({block:'start'})}
+  if(v)open(EV[+v.dataset.i],0)};
+// 사진 크게 보기: 사이트 삽입 상자 안에서는 화면 고정(fixed)이 안 되므로 지금 보이는 범위(window.__vr)에 맞춰 놓는다
+const lb=document.getElementById('lb');let cur,ci;
+function open(e,i){cur=e;ci=(i+e.ph.length)%e.ph.length;
+  lb.querySelector('img').src=sz(e.ph[ci][0],'w1600');
+  lb.querySelector('.cap').innerHTML=esc(e.n||e.d)+(e.d.length>4?' · '+esc(e.d):'')+' &nbsp;('+(ci+1)+' / '+e.ph.length+')'+(e.link?`<a href="${esc(e.link)}" target="_blank" rel="noopener">Album ↗</a>`:'');
+  lb.querySelector('.pv').style.display=lb.querySelector('.nx').style.display=e.ph.length>1?'':'none';
+  if(window!==top&&window.__vr){lb.style.position='absolute';lb.style.top=window.__vr[0]+'px';lb.style.bottom='auto';lb.style.height=(window.__vr[1]-window.__vr[0])+'px'}
+  lb.classList.add('on')}
+lb.onclick=e=>{if(e.target.matches('.pv'))open(cur,ci-1);else if(e.target.matches('.nx'))open(cur,ci+1);else if(!e.target.closest('a'))lb.classList.remove('on')};
+lb.querySelector('img').onclick=e=>{e.stopPropagation();if(cur.ph.length>1)open(cur,ci+1)};
+addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowLeft')open(cur,ci-1);if(e.key==='ArrowRight')open(cur,ci+1)});
+fetch(API+'?type=gallery').then(r=>r.json()).then(d=>d.events).catch(()=>[]).then(ev=>{
+  EV=ev.concat(OLD).sort((a,b)=>b.d.slice(0,4)-a.d.slice(0,4));
+  const ys=[...new Set(EV.map(e=>e.d.slice(0,4)))];
+  document.getElementById('yrs').innerHTML=ys.map(y=>`<button data-y="${y}">${y}<small>${(n=>n+' event'+(n>1?'s':''))(EV.filter(e=>e.d.slice(0,4)===y).length)}</small></button>`).join('');
+  year=ys[0];show();
+});
+</script>
 <style>
 #totop{position:absolute;right:18px;width:46px;height:46px;border-radius:50%;border:0;background:rgba(33,33,33,.85);color:#fff;font-size:22px;line-height:46px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .2s,top .15s;z-index:20}
 #totop.on{opacity:1;pointer-events:auto}#totop.fx{position:fixed;bottom:20px}
@@ -151,7 +122,7 @@ iframe.emb{width:100%;border:0;display:block}
   const vis=new Map();let st=[];
   const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.set(e.target,e.intersectionRect):vis.delete(e.target));
     if(!vis.size)return;let bot=0,tp=1e9;vis.forEach(r=>{bot=Math.max(bot,r.bottom);tp=Math.min(tp,r.top)});
-    const z=parseFloat(document.documentElement.style.zoom)||1;window.__tt=[bot,tp,z,scrollY,vis.size];b.style.top=(bot/z+scrollY-70)+'px';b.classList.toggle('on',tp/z+scrollY>500)},{threshold:[0,.25,.5,.75,1]});
+    const z=parseFloat(document.documentElement.style.zoom)||1;window.__tt=[bot,tp,z,scrollY,vis.size];window.__vr=[tp/z+scrollY,bot/z+scrollY];b.style.top=(bot/z+scrollY-70)+'px';b.classList.toggle('on',tp/z+scrollY>500)},{threshold:[0,.25,.5,.75,1]});
   const mk=()=>{st.forEach(s=>{io.unobserve(s);s.remove()});st=[];vis.clear();const w=document.querySelector('.wrap')||document.body,H=w.offsetTop+w.offsetHeight;
     for(let y=0;y<H;y+=120){const s=document.createElement('div');s.className='stp';s.style.top=y+'px';s.style.height=Math.min(120,H-y)+'px';document.body.appendChild(s);st.push(s);io.observe(s)}};
   let t;new ResizeObserver(()=>{clearTimeout(t);t=setTimeout(mk,400)}).observe(document.body);mk();
