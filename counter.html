@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NIE LAB Visitors</title>
+<script>
+// 대문 삽입 상자용(원래 폭 1019px로 만든 화면): 상자 폭에 맞춰 같은 비율로 확대·축소
+if(window!==top){const z=()=>document.documentElement.style.zoom=innerWidth/1019;z();addEventListener("resize",z)}
+</script></head><body>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
+.wrap{max-width:1000px;margin:0 auto;padding:8px 4px}
+h3{font-family:Oswald;font-weight:400;font-size:28px;text-transform:uppercase;color:#1f1f1f;text-align:center}
+h3 b{color:inherit;font-weight:inherit}
+.rule{width:56px;height:4px;background:#ff5252;margin:8px auto 14px}
+.sum{text-align:center;font-size:14px;color:#616161;margin-bottom:14px}
+.sum b{font-family:Oswald;font-size:20px;color:#0000ff;font-weight:700;margin:0 2px}
+.grid{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px}
+.c{display:flex;align-items:center;gap:7px;border:1px solid #e0e0e0;border-radius:4px;padding:5px 10px;font-size:14px}
+.c .fi{width:24px;height:18px;border-radius:2px;box-shadow:0 0 0 1px #e0e0e0}
+.c .n{font-family:Oswald;font-size:16px;color:#1f1f1f}
+.note{text-align:center;font-size:12px;color:#9e9e9e;margin-top:12px}
+</style>
+<div class="wrap">
+  <h3><b>V</b>isitors</h3>
+  <div class="rule"></div>
+  <div class="sum" id="sum">Loading…</div>
+  <div class="grid" id="grid"></div>
+  <div class="note" id="note"></div>
+</div>
+<script>
+// 국가별 누적 방문자: Apps Script 웹앱(매일 GA4에서 갱신)이 내주는 JSON을 국기와 함께 그린다
+const API='https://script.google.com/macros/s/AKfycbxiZPZd6sWlMN_ouHoJNO6oo74X1-S4-YskfOHw3H8CPZP312ElxQW4LxnxSWkIwDHHlg/exec';
+const fmt=n=>n.toLocaleString('en-US');
+function draw(d){
+  const cs=d.countries||[];
+  document.getElementById('sum').innerHTML=cs.length
+    ?`<b>${fmt(d.total)}</b> visitors from <b>${cs.length}</b> countries`
+    :'Counting visitors from around the world';
+  document.getElementById('grid').innerHTML=cs.map(c=>
+    `<span class="c" title="${c.name}"><span class="fi fi-${c.code.toLowerCase()}"></span><span class="n">${fmt(c.n)}</span></span>`).join('');
+  const s=d.since.replace(/-/g,'.');
+  document.getElementById('note').textContent=`Since ${s} · updated daily`;
+}
+const demo=location.hash==='#demo';
+(demo?Promise.resolve({since:'2026-10-22',total:1287,countries:[
+  {code:'KR',name:'South Korea',n:842},{code:'US',name:'United States',n:131},{code:'CN',name:'China',n:77},{code:'JP',name:'Japan',n:52},
+  {code:'IN',name:'India',n:41},{code:'DE',name:'Germany',n:28},{code:'TW',name:'Taiwan',n:22},{code:'GB',name:'United Kingdom',n:19},
+  {code:'SG',name:'Singapore',n:14},{code:'VN',name:'Vietnam',n:12},{code:'AU',name:'Australia',n:9},{code:'FR',name:'France',n:8}]})
+ :fetch(API).then(r=>r.json()))
+ .then(draw).catch(()=>{document.getElementById('sum').textContent='';});
+</script>
+
+</body></html>

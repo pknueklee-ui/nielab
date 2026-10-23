@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIE LAB Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scrollbar-width:none}
+</style>
+<script>
+if(window!==top){
+  // 사이트 삽입 상자는 폭에 비례해 높이가 바뀌고, 처음엔 좁게 떴다가 넓어지기도 한다 → 폭이 바뀔 때마다 다시 맞춘다
+  // 넓은 화면(≥700): 1068px 기준으로 확대·축소하고 휴대폰용 @media 규칙을 끈다 / 휴대폰: 원래 크기 + 휴대폰 배치(.compact)
+  const R=[];let mode=null;
+  const ap=()=>{const w=innerWidth>=700,d=document.documentElement;
+    d.style.zoom=w?innerWidth/1068:1;d.classList.toggle('compact',!w);
+    if(w===mode)return;mode=w;
+    if(w)[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule){R.push([s,s.cssRules[i].cssText]);s.deleteRule(i)}}catch(e){}});
+    else R.splice(0).forEach(([s,t])=>{try{s.insertRule(t,s.cssRules.length)}catch(e){}});};
+  ap();addEventListener("resize",ap);addEventListener("DOMContentLoaded",()=>{mode=null;ap()});
+}
+</script>
+<style>html::-webkit-scrollbar{display:none}
+/* Google Sites에서 옮긴 페이지: 글자 크기·간격은 원래 사이트 값(본문 Open Sans 17.3px, 제목 Oswald 50.7px) */
+body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
+a{color:inherit}
+.wrap{max-width:1068px;margin:0 auto;padding:4px 0 32px}
+.pt{text-align:center;margin:6px 0 30px}.pt h1{font-family:Oswald,sans-serif;font-weight:400;font-size:58px;line-height:1.15;color:#212121;display:inline-block;padding:0 48px 4px;border-bottom:8px solid #ff5252;text-transform:uppercase}
+.row{display:flex;align-items:flex-start}
+.col{min-width:0}
+.tx p{font-size:17.33px;line-height:1.38;margin:16px 0}
+.tx p:first-child{margin-top:0}.tx p:last-child{margin-bottom:0}
+.tx h1{font-family:Oswald,sans-serif;font-weight:400;font-size:50.67px;line-height:1.23;text-transform:uppercase;color:#1f1f1f}
+.tx h2{font-family:Oswald,sans-serif;font-weight:400;font-size:34px;line-height:1.25;text-transform:uppercase;color:#1f1f1f}
+.tx h3{font-size:18px;font-weight:700}
+.tx ul,.tx ol{padding-left:28px}
+.im img{width:100%;height:auto;display:block}
+iframe.emb{width:100%;border:0;display:block}
+@media(max-width:700px){
+  .pt h1{font-size:34px;padding:0 16px 2px;border-bottom-width:6px}
+  .wrap{padding:4px 14px 24px}
+  .row{flex-direction:column;margin-top:18px!important}
+  .col{flex:1 1 auto!important;margin-left:0!important;width:100%}
+  .col+.col{margin-top:14px}
+  .tx p{font-size:15px}.tx h1{font-size:32px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="pt"><h1><span>Gallery</span></h1></div>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><div class="tx"><p><span style="font-family: Caveat, Arial; font-weight: 700; vertical-align: baseline;">Memories in 2025</span></p></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i01.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><div class="tx"><p><span style="font-family: Caveat, Arial; font-variant: normal; font-weight: 700; vertical-align: baseline;">Memories in 2024</span></p></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i02.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i03.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i04.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i05.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i06.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i07.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i08.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i09.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 23.06%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i10.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 74.39%;margin-left:2.55%"><div class="im"><img src="images/site/gallery/i11.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i12.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i13.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i14.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i15.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i16.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i17.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><div class="tx"><p><span style="font-family: Caveat, Arial; font-variant: normal; font-weight: 700; vertical-align: baseline;">Memories in </span><span style="font-family: Caveat, Arial; font-weight: 700; vertical-align: baseline;">2023</span></p></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i18.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i19.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i20.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i21.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i22.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i23.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.68%;margin-left:0.00%"><div class="im"><img src="images/site/gallery/i24.jpg" alt="" loading="lazy"></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.65%"><div class="im"><img src="images/site/gallery/i25.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 48.48%;margin-left:0.10%"><div class="im"><a href="https://photos.app.goo.gl/mfPxZJm2DZmZ9EhK8" target="_blank" rel="noopener"><img src="images/site/gallery/i26.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 48.68%;margin-left:2.75%"><div class="im"><img src="images/site/gallery/i27.jpg" alt="" loading="lazy"></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:1px"><div class="col" style="flex:0 0 48.48%;margin-left:0.10%"><div class="im"><a href="https://photos.app.goo.gl/Q2LchvVjFb2Z82Qi9" target="_blank" rel="noopener"><img src="images/site/gallery/i28.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 48.48%;margin-left:2.85%"><div class="im"><a href="https://photos.app.goo.gl/w9YqLTvoPUJ6raBAA" target="_blank" rel="noopener"><img src="images/site/gallery/i29.jpg" alt="" loading="lazy"></a></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:1px"><div class="col" style="flex:0 0 48.48%;margin-left:0.10%"><div class="im"><a href="https://photos.app.goo.gl/3rVGKsbVFsoD8Eyp8" target="_blank" rel="noopener"><img src="images/site/gallery/i30.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 48.48%;margin-left:2.85%"><div class="im"><a href="https://photos.app.goo.gl/zTbn4HpYshdSEbsDA" target="_blank" rel="noopener"><img src="images/site/gallery/i31.jpg" alt="" loading="lazy"></a></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:1px"><div class="col" style="flex:0 0 48.48%;margin-left:0.10%"><div class="im"><a href="https://photos.app.goo.gl/afWFdg6VykrRLujKA" target="_blank" rel="noopener"><img src="images/site/gallery/i32.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 48.48%;margin-left:2.85%"><div class="im"><a href="https://photos.app.goo.gl/qyU1ENyYg1SrjY25A" target="_blank" rel="noopener"><img src="images/site/gallery/i33.jpg" alt="" loading="lazy"></a></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:1px"><div class="col" style="flex:0 0 48.48%;margin-left:0.10%"><div class="im"><a href="https://photos.app.goo.gl/sNd5oRZZQZWCJLmu7" target="_blank" rel="noopener"><img src="images/site/gallery/i34.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 48.48%;margin-left:2.85%"><div class="im"><a href="https://photos.app.goo.gl/rjKTaZSdRDdnS6iv7" target="_blank" rel="noopener"><img src="images/site/gallery/i35.jpg" alt="" loading="lazy"></a></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><div class="tx"><p><span style="font-family: Caveat, Arial; font-variant: normal; font-weight: 700; vertical-align: baseline;">Memories in 202</span><span style="font-family: Caveat, Arial; font-weight: 700; vertical-align: baseline;">2</span></p></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:1px"><div class="col" style="flex:0 0 39.94%;margin-left:0.10%"><div class="im"><a href="https://photos.app.goo.gl/SksFBSWCL9SNr5wp9" target="_blank" rel="noopener"><img src="images/site/gallery/i36.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 22.87%;margin-left:2.75%"><div class="im"><a href="https://photos.app.goo.gl/iRuxsgd5Hyr62piB7" target="_blank" rel="noopener"><img src="images/site/gallery/i37.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 31.40%;margin-left:2.85%"><div class="im"><a href="https://photos.app.goo.gl/oCd6FvBMe8zwBQMu8" target="_blank" rel="noopener"><img src="images/site/gallery/i38.jpg" alt="" loading="lazy"></a></div></div></div>
+<div class="row" style="margin-top:80px"><div class="col" style="flex:0 0 39.94%;margin-left:0.10%"><div class="im"><a href="https://photos.app.goo.gl/2fvrxiL37BzzNg6j9" target="_blank" rel="noopener"><img src="images/site/gallery/i39.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 22.87%;margin-left:2.75%"><div class="im"><a href="https://photos.app.goo.gl/Temh4j5Xt4j2mvo6A" target="_blank" rel="noopener"><img src="images/site/gallery/i40.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 31.40%;margin-left:2.85%"><div class="im"><a href="https://photos.app.goo.gl/NEnpsePrXXaiuupx9" target="_blank" rel="noopener"><img src="images/site/gallery/i41.jpg" alt="" loading="lazy"></a></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:1px"><div class="col" style="flex:0 0 48.48%;margin-left:0.10%"><div class="im"><a href="https://photos.app.goo.gl/W2ttbjGFjKxUCp178" target="_blank" rel="noopener"><img src="images/site/gallery/i42.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 48.48%;margin-left:2.85%"><div class="im"><a href="https://photos.app.goo.gl/yrz55gNBzL3V8PC28" target="_blank" rel="noopener"><img src="images/site/gallery/i43.jpg" alt="" loading="lazy"></a></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:1px"><div class="col" style="flex:0 0 48.48%;margin-left:0.10%"><div class="im"><a href="https://photos.app.goo.gl/zDPahDBeRdBR51wX6" target="_blank" rel="noopener"><img src="images/site/gallery/i44.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 48.48%;margin-left:2.85%"><div class="im"><a href="https://photos.app.goo.gl/3oanY6jQLHLWz7Rd7" target="_blank" rel="noopener"><img src="images/site/gallery/i45.jpg" alt="" loading="lazy"></a></div></div></div>
+<div class="row" style="margin-top:127px"><div class="col" style="flex:0 0 48.48%;margin-left:0.10%"><div class="im"><a href="https://photos.app.goo.gl/pNgPFftSNsb3Zw6o8" target="_blank" rel="noopener"><img src="images/site/gallery/i46.jpg" alt="" loading="lazy"></a></div></div><div class="col" style="flex:0 0 48.48%;margin-left:2.85%"><div class="im"><a href="https://photos.app.goo.gl/RKzMVcrAhG88jZKH8" target="_blank" rel="noopener"><img src="images/site/gallery/i47.jpg" alt="" loading="lazy"></a></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:1px"><div class="col" style="flex:0 0 48.48%;margin-left:0.10%"><div class="im"><a href="https://photos.app.goo.gl/waLVKJq7rsjAQ9hF8" target="_blank" rel="noopener"><img src="images/site/gallery/i48.jpg" alt="" loading="lazy"></a></div></div></div>
+</section>
+</div>
+<style>
+#totop{position:absolute;right:18px;width:46px;height:46px;border-radius:50%;border:0;background:rgba(33,33,33,.85);color:#fff;font-size:22px;line-height:46px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .2s,top .15s;z-index:20}
+#totop.on{opacity:1;pointer-events:auto}#totop.fx{position:fixed;bottom:20px}
+.stp{position:absolute;left:0;width:1px;height:120px;pointer-events:none}
+</style>
+<script>
+// 맨 위로 버튼: 사이트 삽입 상자 안이라 화면 고정(fixed)이 안 된다. 120px 간격 표지(.stp)를 IntersectionObserver로 지켜
+// 지금 화면에 보이는 범위의 아래쪽에 버튼을 옮겨 둔다(값은 상자 화면 px → zoom으로 나눠 문서 좌표로)
+(()=>{const b=document.createElement('button');b.id='totop';b.setAttribute('aria-label','Back to top');b.textContent='↑';document.body.appendChild(b);
+  const go=()=>{(document.querySelector('.wrap')||document.body).scrollIntoView({block:'start'});if(window===top)scrollTo({top:0,behavior:'smooth'})};b.onclick=go;
+  if(window===top){b.classList.add('fx');addEventListener('scroll',()=>b.classList.toggle('on',scrollY>600));return}
+  const vis=new Map();let st=[];
+  const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.set(e.target,e.intersectionRect):vis.delete(e.target));
+    if(!vis.size)return;let bot=0,tp=1e9;vis.forEach(r=>{bot=Math.max(bot,r.bottom);tp=Math.min(tp,r.top)});
+    const z=parseFloat(document.documentElement.style.zoom)||1;window.__tt=[bot,tp,z,scrollY,vis.size];b.style.top=(bot/z+scrollY-70)+'px';b.classList.toggle('on',tp/z+scrollY>500)},{threshold:[0,.25,.5,.75,1]});
+  const mk=()=>{st.forEach(s=>{io.unobserve(s);s.remove()});st=[];vis.clear();const w=document.querySelector('.wrap')||document.body,H=w.offsetTop+w.offsetHeight;
+    for(let y=0;y<H;y+=120){const s=document.createElement('div');s.className='stp';s.style.top=y+'px';s.style.height=Math.min(120,H-y)+'px';document.body.appendChild(s);st.push(s);io.observe(s)}};
+  let t;new ResizeObserver(()=>{clearTimeout(t);t=setTimeout(mk,400)}).observe(document.body);mk();
+})();
+</script>
+</body>
+</html>

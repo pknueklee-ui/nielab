@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NIE LAB Interface animation</title>
+<script>
+// 대문 삽입 상자용(원래 폭 1019px로 만든 화면): 상자 폭에 맞춰 같은 비율로 확대·축소
+if(window!==top){const z=()=>document.documentElement.style.zoom=innerWidth/1019;z();addEventListener("resize",z)}
+</script></head><body>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400&family=Noto+Sans+KR:wght@400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:"Open Sans","Noto Sans KR",Arial,sans-serif}
+.stage{max-width:1000px;margin:0 auto}
+.stage canvas{width:100%;height:340px;display:block;cursor:crosshair}
+.steps{display:flex;justify-content:center;gap:36px;margin-top:10px;font-family:Oswald;font-size:20px;color:#bdbdbd;text-transform:uppercase}
+.steps span.on{color:#1f1f1f}.steps span.on b{color:#0000ff}
+.explain{text-align:center;font-family:"Noto Sans KR","Open Sans";font-size:15px;color:#424242;min-height:52px;margin-top:4px}
+.explain small{display:block;font-family:"Open Sans";color:#757575;font-size:13px}
+.hint{text-align:center;font-size:12px;color:#9e9e9e;margin-top:6px}
+@media (max-width:600px){.stage canvas{height:240px}.steps{gap:16px;font-size:16px}}
+</style>
+<div class="stage">
+  <canvas id="c" aria-label="Molecules meet at an interface, diffuse across it, and line up into order"></canvas>
+  <div class="steps"><span data-i="0"><b>C</b>ontact</span><span data-i="1"><b>D</b>iffusion</span><span data-i="2"><b>O</b>rdering</span></div>
+  <div class="explain" id="ex"></div>
+  <div class="hint">Move your mouse over the picture to heat it up. 마우스를 올리면 열이 가해집니다.</div>
+</div>
+<script>
+/* 3장면 반복: 만남 → 확산 → 배열 → (녹아 흩어짐) → 처음
+   파란 막대 = 분자. 빨간 선 = 계면. 아래 회색 = 상대 물질. 마우스 = 열(무질서). */
+const cv=document.getElementById('c'),x=cv.getContext('2d'),ex=document.getElementById('ex');
+const steps=[...document.querySelectorAll('.steps span')];
+const TXT=[
+ ['두 물질이 만납니다. 위쪽 분자들은 아직 제멋대로 움직입니다.','Two materials meet. The molecules above still move at random.'],
+ ['분자가 경계를 넘어 퍼집니다. 물에 잉크가 번지는 것과 같은 확산입니다.','Molecules cross the boundary and spread, like ink in water.'],
+ ['계면 근처의 분자가 줄을 맞춰 섭니다. 이 배열이 물질의 성질을 바꿉니다.','Near the interface, molecules line up. This order changes what the material can do.']];
+const T=[5,7,7,2.5], CYCLE=T.reduce((a,b)=>a+b);
+let W,H,d,L,mols=[],mouse={x:-1e4,y:-1e4},clock=0,shown=-1;
+function init(){
+  d=devicePixelRatio||1;W=cv.width=cv.offsetWidth*d;H=cv.height=cv.offsetHeight*d;L=H*0.42;
+  const cols=Math.max(16,Math.round(W/(26*d))),rows=5,n=cols*rows;
+  mols=[];
+  for(let i=0;i<n;i++){
+    const c=i%cols,r=i/cols|0;
+    mols.push({x:Math.random()*W,y:Math.random()*L*0.9+L*0.05,a:Math.random()*Math.PI,vx:0,vy:0,va:0,
+      tx:(c+0.5)*W/cols, ty:L+H*0.09+r*H*0.1, crossed:false});
+  }
+}
+function scene(s){ // 0 contact,1 diffusion,2 ordering,3 melt
+  let k=0;for(let i=0;i<4;i++){if(s<T[i])return [i,s/T[i]];s-=T[i];}return [3,1];
+}
+function tick(){  // 장면 시간은 프레임 수로 센다(탭이 느려져도 설명과 그림이 어긋나지 않게)
+  clock+=1/60;
+  const s=clock%CYCLE,[ph,p]=scene(s);
+  if(ph===0&&p<0.02&&shown!==0)init();
+  const label=ph===3?2:ph;
+  if(label!==shown){shown=label;steps.forEach((e,i)=>e.classList.toggle('on',i===label));ex.innerHTML=TXT[label][0]+'<small>'+TXT[label][1]+'</small>';}
+
+  // 배경: 위(용액)는 흰색, 아래(상대 물질)는 옅은 회색. 확산이 진행되면 아래가 파랗게 물든다
+  x.fillStyle='#fff';x.fillRect(0,0,W,H);
+  x.fillStyle='#f4f4f4';x.fillRect(0,L,W,H-L);
+
+  // 잉크 번짐: 각 분자 주변의 옅은 파란 구름
+  x.globalCompositeOperation='multiply';
+  for(const m of mols){
+    const g=x.createRadialGradient(m.x,m.y,0,m.x,m.y,26*d);
+    g.addColorStop(0,'rgba(0,0,255,0.10)');g.addColorStop(1,'rgba(0,0,255,0)');
+    x.fillStyle=g;x.fillRect(m.x-26*d,m.y-26*d,52*d,52*d);
+  }
+  x.globalCompositeOperation='source-over';
+
+  // 계면 (빨간 선)
+  x.fillStyle='#ff5252';x.fillRect(0,L-2.5*d,W,5*d);
+
+  for(const m of mols){
+    const heat=Math.max(0,1-Math.hypot(m.x-mouse.x,m.y-mouse.y)/(90*d));
+    let jit=0.9, pull=0;
+    if(ph===0){ if(m.y>L-6*d){m.vy-=0.3*d} }                 // 아직 경계를 못 넘음
+    if(ph===1){ m.vy+=0.05*d*(m.y<L?1:0.7); jit=m.y<L?1.3:2.2; }      // 확산: 아래로 퍼짐
+    if(ph===2){ pull=Math.min(1,p*1.6); jit=0.9*(1-pull)+0.08; } // 배열: 자리 찾아 정렬
+    if(ph===3){ jit=2.4; m.vy-=0.12*d; }                       // 녹아서 흩어짐
+    jit+=heat*4;pull*=(1-heat);
+    m.vx+=(Math.random()-.5)*jit*0.6*d; m.vy+=(Math.random()-.5)*jit*0.6*d; m.va+=(Math.random()-.5)*jit*0.05;
+    if(pull>0){m.vx+=(m.tx-m.x)*0.02*pull;m.vy+=(m.ty-m.y)*0.02*pull;
+      let da=(Math.PI/2-m.a)%Math.PI;if(da>Math.PI/2)da-=Math.PI;if(da<-Math.PI/2)da+=Math.PI;m.va+=da*0.05*pull;}
+    m.vx*=0.88;m.vy*=0.88;m.va*=0.85;
+    m.x+=m.vx;m.y+=m.vy;m.a+=m.va;
+    if(m.x<0)m.x=0;if(m.x>W)m.x=W;if(m.y<4*d)m.y=4*d;if(m.y>H-4*d)m.y=H-4*d;
+
+    const len=11*d, c=Math.cos(m.a)*len, sn=Math.sin(m.a)*len;
+    x.strokeStyle=m.y<L?'#0000ff':'#1a1aa8';x.lineWidth=3.2*d;x.lineCap='round';
+    x.beginPath();x.moveTo(m.x-c,m.y-sn);x.lineTo(m.x+c,m.y+sn);x.stroke();
+  }
+}
+function frame(){tick();requestAnimationFrame(frame);}
+cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mouse.x=(e.clientX-r.left)*d;mouse.y=(e.clientY-r.top)*d;});
+cv.addEventListener('pointerleave',()=>{mouse.x=mouse.y=-1e4});
+init();addEventListener('resize',init);requestAnimationFrame(frame);
+</script>
+
+</body></html>

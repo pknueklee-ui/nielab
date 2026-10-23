@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIE LAB Nano-interface electronics Lab&nbsp;</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scrollbar-width:none}
+</style>
+<script>
+if(window!==top){
+  // 사이트 삽입 상자는 폭에 비례해 높이가 바뀌고, 처음엔 좁게 떴다가 넓어지기도 한다 → 폭이 바뀔 때마다 다시 맞춘다
+  // 넓은 화면(≥700): 1068px 기준으로 확대·축소하고 휴대폰용 @media 규칙을 끈다 / 휴대폰: 원래 크기 + 휴대폰 배치(.compact)
+  const R=[];let mode=null;
+  const ap=()=>{const w=innerWidth>=700,d=document.documentElement;
+    d.style.zoom=w?innerWidth/1068:1;d.classList.toggle('compact',!w);
+    if(w===mode)return;mode=w;
+    if(w)[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule){R.push([s,s.cssRules[i].cssText]);s.deleteRule(i)}}catch(e){}});
+    else R.splice(0).forEach(([s,t])=>{try{s.insertRule(t,s.cssRules.length)}catch(e){}});};
+  ap();addEventListener("resize",ap);addEventListener("DOMContentLoaded",()=>{mode=null;ap()});
+}
+</script>
+<style>html::-webkit-scrollbar{display:none}
+/* Google Sites에서 옮긴 페이지: 글자 크기·간격은 원래 사이트 값(본문 Open Sans 17.3px, 제목 Oswald 50.7px) */
+body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
+a{color:inherit}
+.wrap{max-width:1068px;margin:0 auto;padding:4px 0 32px}
+.pt{text-align:center;margin:6px 0 30px}.pt h1{font-family:Oswald,sans-serif;font-weight:400;font-size:58px;line-height:1.15;color:#212121;display:inline-block;padding:0 48px 4px;border-bottom:8px solid #ff5252;text-transform:uppercase}
+.row{display:flex;align-items:flex-start}
+.col{min-width:0}
+.tx p{font-size:17.33px;line-height:1.38;margin:16px 0}
+.tx p:first-child{margin-top:0}.tx p:last-child{margin-bottom:0}
+.tx h1{font-family:Oswald,sans-serif;font-weight:400;font-size:50.67px;line-height:1.23;text-transform:uppercase;color:#1f1f1f}
+.tx h2{font-family:Oswald,sans-serif;font-weight:400;font-size:34px;line-height:1.25;text-transform:uppercase;color:#1f1f1f}
+.tx h3{font-size:18px;font-weight:700}
+.tx ul,.tx ol{padding-left:28px}
+.im img{width:100%;height:auto;display:block}
+iframe.emb{width:100%;border:0;display:block}
+@media(max-width:700px){
+  .pt h1{font-size:34px;padding:0 16px 2px;border-bottom-width:6px}
+  .wrap{padding:4px 14px 24px}
+  .row{flex-direction:column;margin-top:18px!important}
+  .col{flex:1 1 auto!important;margin-left:0!important;width:100%}
+  .col+.col{margin-top:14px}
+  .tx p{font-size:15px}.tx h1{font-size:32px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="pt"><h1><span style="color: #0000ff; font-family: Oswald, Arial; font-weight: 700;">N</span><span>ano-</span><span style="color: #0000ff; font-family: Oswald, Arial; font-weight: 700;">i</span><span>nterface </span><span style="color: #0000ff; font-family: Oswald, Arial; font-weight: 700;">e</span><span>lectronics </span><span style="color: #0000ff; font-family: Oswald, Arial; font-weight: 700;">L</span><span style="color: #0000ff;">ab</span><span>&nbsp;</span></h1></div>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><iframe class="emb" src="anim.html" style="aspect-ratio:1019/441" title="anim.html" loading="lazy"></iframe></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><div class="tx"><p style="line-height: 1.38; margin-bottom: 12.0pt; margin-left: 0.0pt; margin-right: 0.0pt; margin-top: 12.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt; text-align: left; text-indent: 0.0pt;"><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;">Hello!</span></p><p style="line-height: 1.38; margin-bottom: 12.0pt; margin-left: 0.0pt; margin-right: 0.0pt; margin-top: 12.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt; text-align: left; text-indent: 0.0pt;"><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;">Welcome to </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">Nano-Interface Electronics Lab (NIE LAB)</span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;"> at Pukyong National University (PKNU).</span></p><p style="line-height: 1.38; margin-bottom: 12.0pt; margin-left: 0.0pt; margin-right: 0.0pt; margin-top: 12.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt; text-align: left; text-indent: 0.0pt;"><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;">When two different materials meet, molecules move across the boundary, line up, and change what the material can do. We study these phenomena at interfaces and apply them to real devices, to find something scientifically </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">FUNNY</span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;">, </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">INTERESTING</span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;">, and </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">RESULTS that help in our real life</span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;">.</span></p><p style="line-height: 1.38; margin-bottom: 12.0pt; margin-left: 0.0pt; margin-right: 0.0pt; margin-top: 12.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt; text-align: left; text-indent: 0.0pt;"><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;">What we study: </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">Interfacial phenomena</span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;"> · </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">Molecular ordering</span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;"> · </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">Mass diffusion</span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;"> · </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">Physical chemistry</span></p><p style="line-height: 1.38; margin-bottom: 12.0pt; margin-left: 0.0pt; margin-right: 0.0pt; margin-top: 12.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt; text-align: left; text-indent: 0.0pt;"><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;">안녕하세요!</span></p><p style="line-height: 1.38; margin-bottom: 12.0pt; margin-left: 0.0pt; margin-right: 0.0pt; margin-top: 12.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt; text-align: left; text-indent: 0.0pt;"><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;">부경대학교 </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">나노계면 전자소자 연구실 (NIE LAB)</span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;"> 홈페이지에 오신 것을 환영합니다.</span></p><p style="line-height: 1.38; margin-bottom: 12.0pt; margin-left: 0.0pt; margin-right: 0.0pt; margin-top: 12.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt; text-align: left; text-indent: 0.0pt;"><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;">서로 다른 물질이 만나면, 분자는 경계를 넘어 퍼지고 줄을 맞추며 물질의 성질을 바꿉니다. 우리 연구실은 계면에서 일어나는 이 현상을 이해하고, 이를 실제 소자에 적용하여 과학적으로 재미있고, 흥미롭고, 우리 실생활에 도움이 되는 결과를 구현하기 위해 연구하고 있습니다.</span></p><p style="line-height: 1.38; margin-bottom: 12.0pt; margin-left: 0.0pt; margin-right: 0.0pt; margin-top: 12.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt; text-align: left; text-indent: 0.0pt;"><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;">연구 주제: </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">계면현상</span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;"> · </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">분자배열</span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;"> · </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">물질 확산</span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline;"> · </span><span style="color: #212121; font-family: 'Open Sans', Arial; font-size: 13.0pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline;">물리화학</span></p><br></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><iframe class="emb" src="latest.html" style="aspect-ratio:1019/448" title="latest.html" loading="lazy"></iframe></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><div class="tx"><p style="line-height: 1.7999999999999998; margin-bottom: 0.0pt; margin-top: 0.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt;"><span style="font-family: 'Open Sans', Arial; font-size: 10.0pt; font-weight: 700; vertical-align: baseline;">Nano-interface Electronics Lab (NIE LAB)</span></p><p style="line-height: 1.7999999999999998; margin-bottom: 0.0pt; margin-top: 0.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt;"><span style="font-size: 10.0pt; vertical-align: baseline;">Office: Room 1106, Engineering Building 1, Daeyeon Campus, Pukyong National University, 45, Yongso-ro, Nam-gu, Busan 48513, Republic of Korea</span></p><p style="line-height: 1.7999999999999998; margin-bottom: 0.0pt; margin-top: 0.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt;"><span style="font-size: 10.0pt; vertical-align: baseline;">(48513) 부산광역시 남구 용소로 45 부경대학교 대연캠퍼스 공학1관 1106호</span></p><br><p style="line-height: 1.7999999999999998; margin-bottom: 0.0pt; margin-top: 0.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt;"><span style="font-size: 10.0pt; vertical-align: baseline;">Laboratory: Room 301, Building 13 (formerly Engineering Building #4), Yongdang Campus, Pukyong National University, 365, Sinseon-ro, Nam-gu, Busan 48547, Republic of Korea</span></p><p style="line-height: 1.7999999999999998; margin-bottom: 0.0pt; margin-top: 0.0pt; padding-bottom: 0.0pt; padding-left: 0.0pt; padding-right: 0.0pt; padding-top: 0.0pt;"><span style="font-size: 10.0pt; font-variant: normal; vertical-align: baseline;">&nbsp;(48547) 부산광역시 남구 </span><span style="font-size: 10.0pt; vertical-align: baseline;">신선로</span><span style="font-size: 10.0pt; font-variant: normal; vertical-align: baseline;"> </span><span style="font-size: 10.0pt; vertical-align: baseline;">365</span><span style="font-size: 10.0pt; font-variant: normal; vertical-align: baseline;"> 부경대학교 </span><span style="font-size: 10.0pt; vertical-align: baseline;">용당</span><span style="font-size: 10.0pt; font-variant: normal; vertical-align: baseline;">캠퍼스 </span><span style="font-size: 10.0pt; vertical-align: baseline;">용당13</span><span style="font-size: 10.0pt; font-variant: normal; vertical-align: baseline;">관 </span><span style="font-size: 10.0pt; vertical-align: baseline;">301</span><span style="font-size: 10.0pt; font-variant: normal; vertical-align: baseline;">호</span></p></div></div></div>
+</section>
+<section class="sec">
+<div class="row" style="margin-top:0px"><div class="col" style="flex:0 0 100.00%;margin-left:0.00%"><iframe class="emb" src="counter.html" style="aspect-ratio:1019/248" title="counter.html" loading="lazy"></iframe></div></div>
+</section>
+</div>
+<style>
+#totop{position:absolute;right:18px;width:46px;height:46px;border-radius:50%;border:0;background:rgba(33,33,33,.85);color:#fff;font-size:22px;line-height:46px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .2s,top .15s;z-index:20}
+#totop.on{opacity:1;pointer-events:auto}#totop.fx{position:fixed;bottom:20px}
+.stp{position:absolute;left:0;width:1px;height:120px;pointer-events:none}
+</style>
+<script>
+// 맨 위로 버튼: 사이트 삽입 상자 안이라 화면 고정(fixed)이 안 된다. 120px 간격 표지(.stp)를 IntersectionObserver로 지켜
+// 지금 화면에 보이는 범위의 아래쪽에 버튼을 옮겨 둔다(값은 상자 화면 px → zoom으로 나눠 문서 좌표로)
+(()=>{const b=document.createElement('button');b.id='totop';b.setAttribute('aria-label','Back to top');b.textContent='↑';document.body.appendChild(b);
+  const go=()=>{(document.querySelector('.wrap')||document.body).scrollIntoView({block:'start'});if(window===top)scrollTo({top:0,behavior:'smooth'})};b.onclick=go;
+  if(window===top){b.classList.add('fx');addEventListener('scroll',()=>b.classList.toggle('on',scrollY>600));return}
+  const vis=new Map();let st=[];
+  const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.set(e.target,e.intersectionRect):vis.delete(e.target));
+    if(!vis.size)return;let bot=0,tp=1e9;vis.forEach(r=>{bot=Math.max(bot,r.bottom);tp=Math.min(tp,r.top)});
+    const z=parseFloat(document.documentElement.style.zoom)||1;window.__tt=[bot,tp,z,scrollY,vis.size];b.style.top=(bot/z+scrollY-70)+'px';b.classList.toggle('on',tp/z+scrollY>500)},{threshold:[0,.25,.5,.75,1]});
+  const mk=()=>{st.forEach(s=>{io.unobserve(s);s.remove()});st=[];vis.clear();const w=document.querySelector('.wrap')||document.body,H=w.offsetTop+w.offsetHeight;
+    for(let y=0;y<H;y+=120){const s=document.createElement('div');s.className='stp';s.style.top=y+'px';s.style.height=Math.min(120,H-y)+'px';document.body.appendChild(s);st.push(s);io.observe(s)}};
+  let t;new ResizeObserver(()=>{clearTimeout(t);t=setTimeout(mk,400)}).observe(document.body);mk();
+})();
+</script>
+</body>
+</html>
