@@ -12,6 +12,8 @@ html{scrollbar-width:none}
 <script>
 // Sites 삽입 상자는 폭에 비례해 높이가 바뀐다 → 넓은 화면은 1068px 기준으로 같은 비율로 확대·축소, 휴대폰은 원래 크기의 휴대폰 배치
 if(window!==top){const wide=innerWidth>=700,z=()=>document.documentElement.style.zoom=innerWidth>=700?innerWidth/1068:1;z();addEventListener("resize",z);
+  // 휴대폰 폭에서는 사이트 상자가 낮아 전체가 안 들어가므로 핵심만 보이고, 전체는 새 창으로 연다
+  if(!wide)document.documentElement.classList.add('compact');
   if(wide)addEventListener("DOMContentLoaded",()=>[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule)s.deleteRule(i)}catch(e){}}))}
 </script>
 <style>html::-webkit-scrollbar{display:none}
@@ -45,6 +47,12 @@ ol.ap{padding-left:22px;font-size:15px;line-height:1.9}
 .mail{display:inline-block;margin-top:16px;background:#0000ff;color:#fff;text-decoration:none;font-family:Oswald,sans-serif;font-size:19px;letter-spacing:.5px;padding:10px 26px;border-radius:4px}
 .mail:hover{background:#0000c8}
 .note{font-size:13px;color:#757575;margin-top:12px;line-height:1.6}
+.more{display:none}
+.compact .learn,.compact .alumni,.compact ol.ap,.compact .note{display:none}
+.compact .more{display:inline-block;margin:14px 0 0 12px;font-family:Oswald,sans-serif;font-size:16px}
+.compact .pt{margin-bottom:14px}.compact .ko{margin-bottom:16px}.compact h2{margin-top:22px}
+.compact .pos{grid-template-columns:1fr 1fr;gap:8px}.compact .pos div{padding:8px 10px}.compact .pos b{font-size:14px}
+.compact .mail{margin-top:18px;font-size:16px;padding:8px 18px}
 @media(max-width:700px){
   .pt h1{font-size:38px;padding:0 20px 2px;border-bottom-width:6px}
   .lead{font-size:15.5px}.ko{font-size:13.5px;margin-bottom:26px}
@@ -74,7 +82,7 @@ ol.ap{padding-left:22px;font-size:15px;line-height:1.9}
     <div><b>Undergraduate intern</b><span>학부연구생 (언제든 문의)</span></div>
   </div>
 
-  <h2><b>W</b>hat you will learn</h2><div class="rule"></div>
+  <div class="learn"><h2><b>W</b>hat you will learn</h2><div class="rule"></div>
   <div class="grid">
     <div class="card"><h3>Device fabrication</h3><p>Organic electrochemical transistors, field-effect transistors, neuromorphic devices and wearable sensors — from solution to working device.</p><p class="k">유기 전기화학 트랜지스터·전계효과 트랜지스터·뉴로모픽 소자·웨어러블 센서 제작</p></div>
     <div class="card"><h3>Materials design</h3><p>Conjugated polymers, ion gels, dopants and interlayers: how molecules order, how ions diffuse, and how interfaces control both.</p><p class="k">전도성 고분자·이온겔·도펀트·계면층 설계</p></div>
@@ -82,8 +90,9 @@ ol.ap{padding-left:22px;font-size:15px;line-height:1.9}
     <div class="card"><h3>Writing &amp; presenting</h3><p>Students write their own papers as first authors and present at international and domestic conferences.</p><p class="k">주저자 논문 작성과 국내외 학회 발표</p></div>
   </div>
 
-  <h2><b>W</b>here our alumni are</h2><div class="rule"></div>
-  <div class="alm" id="alm"><span>Loading…</span></div>
+  </div>
+  <div class="alumni"><h2><b>W</b>here our alumni are</h2><div class="rule"></div>
+  <div class="alm" id="alm"><span>Loading…</span></div></div>
 
   <h2><b>H</b>ow to apply</h2><div class="rule"></div>
   <ol class="ap">
@@ -91,7 +100,7 @@ ol.ap{padding-left:22px;font-size:15px;line-height:1.9}
     <li>Transcript (성적증명서)</li>
     <li>A few lines on what you want to study (관심 연구 주제를 몇 줄로)</li>
   </ol>
-  <a class="mail" href="mailto:eklee@pknu.ac.kr?subject=%5BNIE%20LAB%5D%20Application" target="_top">eklee@pknu.ac.kr</a>
+  <a class="mail" href="mailto:eklee@pknu.ac.kr?subject=%5BNIE%20LAB%5D%20Application" target="_top">eklee@pknu.ac.kr</a><a class="more" href="https://pknueklee-ui.github.io/nielab/join.html" target="_blank" rel="noopener">More details →</a>
   <p class="note">Office: Room 1106, Engineering Building 1, Daeyeon Campus · Lab: Room 301, Building 13, Yongdang Campus, Pukyong National University<br>학부생은 공학1관 1106호로 직접 찾아와도 좋습니다.</p>
 </div>
 <script>
