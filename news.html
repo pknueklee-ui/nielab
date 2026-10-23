@@ -97,7 +97,9 @@ iframe.emb{width:100%;border:0;display:block}
 </style>
 <script>
 // 연도별 보기: 날짜(yyyy.mm.dd) 문단부터 다음 날짜 전까지를 한 소식으로 보고, 문단·그림 줄마다 연도를 붙여 고른 해만 보여 준다
-(()=>{const sec=document.querySelector('.wrap');if(!sec)return;
+// 자동 소식(웹앱 ?type=news, 시트 News 탭에서 Y로 승인한 것)을 맨 위에 붙인 뒤 연도 버튼을 만든다
+const NEWS_API='https://script.google.com/macros/s/AKfycbwQ1zLyqlhWx-5i-VVdNoP1oInUUhwnRqPiLEOHH3Gw50bw8Gat0yg9bvZ90tz4OpHWyw/exec?type=news';
+const yrs=()=>{const sec=document.querySelector('.wrap');if(!sec)return;
   const DT=/^\s*((?:19|20)\d\d)\.\d\d\.\d\d\s*$/;let y='';const blocks=[],cnt={};
   sec.querySelectorAll('section .tx p,section .tx h1,.tx h2,.tx h3,.im,.card').forEach(e=>{const m=e.textContent.match(DT);if(m){y=m[1];cnt[y]=(cnt[y]||0)+1}if(y){e.dataset.y=y;blocks.push(e)}});
   const ys=Object.keys(cnt).sort().reverse(),bar=document.getElementById('yrs');
@@ -106,7 +108,14 @@ iframe.emb{width:100%;border:0;display:block}
     bar.querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
     blocks.forEach(e=>e.style.display=!v||e.dataset.y===v?'':'none');
     sec.querySelectorAll('.row').forEach(r=>{const k=[...r.querySelectorAll('[data-y]')];r.style.display=k.length&&k.every(e=>e.style.display==='none')?'none':''});};
-})();
+};
+fetch(NEWS_API).then(r=>r.json()).then(d=>{
+  const tx=document.querySelector('section .tx'),first=tx&&tx.querySelector('p');if(!first||!d.news.length)return;
+  const esc=t=>String(t||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const st=first.getAttribute('style')||'',ds=(first.querySelector('span')||{}).getAttribute?first.querySelector('span').getAttribute('style'):'';
+  const known=new Set([...tx.querySelectorAll('p')].map(e=>e.textContent.trim()));
+  d.news.filter(n=>!known.has(n.t.trim())).forEach(n=>first.insertAdjacentHTML('beforebegin',`<p style="${st}"><span style="${ds}">${esc(n.d)}</span></p><p style="${st}"><span style="color:#212121;font-size:10.5pt">${esc(n.t)}</span></p>`));
+}).catch(()=>{}).then(yrs);
 </script>
 <script src="ko.js"></script>
 </body>
