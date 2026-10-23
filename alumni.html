@@ -6,7 +6,9 @@ html{scrollbar-width:none}
 </style>
 <script>
 // Sites 삽입 상자는 폭에 비례해 높이가 바뀐다 → 안쪽도 1068px 기준으로 같은 비율로 확대·축소해 스크롤이 하나만 생기게 한다
-if(window!==top){const z=()=>document.documentElement.style.zoom=innerWidth/1068;z();addEventListener("resize",z)}
+if(window!==top){const z=()=>document.documentElement.style.zoom=innerWidth/1068;z();addEventListener("resize",z);
+  // 좁은 화면용 배치(@media)는 쓰지 않는다: 확대·축소로 맞추므로 배치가 바뀌면 높이 비율이 깨진다
+  addEventListener("DOMContentLoaded",()=>[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule)s.deleteRule(i)}catch(e){}}))}
 </script>
 <style>html::-webkit-scrollbar{display:none}
 body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
