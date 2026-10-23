@@ -1,0 +1,55 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NIE LAB Alumni</title></head><body>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
+.wrap{max-width:1160px;margin:0 auto;padding:4px 8px 24px}
+.upd{text-align:right;font-family:Georgia,serif;font-style:italic;font-weight:700;font-size:17px;margin:8px 0 40px}
+h2{font-size:42px;font-weight:700;margin:56px 0 44px 8px}
+h2:first-of-type{margin-top:0}
+.m{display:flex;gap:38px;margin-bottom:52px;align-items:flex-start}
+.m img,.m .ph{width:168px;height:168px;border-radius:50%;object-fit:cover;object-position:50% 45%;flex:none;background:#eee;box-shadow:0 0 0 1px #e0e0e0}
+.ty{font-family:"Dancing Script",cursive;font-size:21px;color:#444;margin-top:4px}
+.m h3{font-size:24px;font-weight:700;margin:12px 0 18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px 48px}
+.two .m{gap:24px}
+.two .m img,.two .m .ph{width:160px;height:160px}
+.two .m dl div{text-align:left}
+.two .m h3{font-size:20px;margin:8px 0 12px}
+.m dl{font-size:13px;line-height:1.6}
+.m dt{font-weight:700;display:inline}
+.m dd{display:inline;margin:0}
+.m dl div{margin-bottom:8px;text-align:justify}
+@media(max-width:800px){.two{grid-template-columns:1fr}}
+@media(max-width:640px){.m{flex-direction:column;gap:12px}h2{font-size:30px}}
+</style>
+<div class="wrap" id="root"></div>
+<script>
+// Member/Alumni: Apps Script 웹앱(시트 Homepage 탭, 매시간 갱신)이 내주는 JSON을 그린다
+const API='https://script.google.com/macros/s/AKfycbwQ1zLyqlhWx-5i-VVdNoP1oInUUhwnRqPiLEOHH3Gw50bw8Gat0yg9bvZ90tz4OpHWyw/exec';
+const GROUPS=['Alumni'];
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const row=(k,v)=>v?`<div><dt>${k}:</dt> <dd>${esc(v)}</dd></div>`:'';
+function draw(d){
+  let h=`<div class="upd">Updated on ${esc(d.updated)}</div>`;
+  for(const g of GROUPS){
+    const ms=d.members.filter(m=>m.group===g);
+    if(!ms.length) continue;
+    if(GROUPS.length>1) h+=`<h2>${esc(g==='Students'?'Research Students':g)}</h2>`;
+    h+=`<div class="${g==='Alumni'?'two':''}">`;
+    for(const m of ms){
+      const period=g==='Alumni'?(m.start?`${m.start} – ${m.end}`:''):(m.start?`${m.start} ~`:'');
+      h+=`<div class="m">${m.photo?`<img src="${m.photo}" alt="${esc(m.en)}" loading="lazy">`:'<div class="ph"></div>'}<div>
+        <h3>${esc(m.name)}, ${esc(m.en)}</h3><dl>
+        ${row('Hobby',m.hobby)}${row('Research interest',m.research)}
+        ${row(g==='Alumni'?'Period':'Starting from',period)}${row('Current affiliation',m.affil)}
+        </dl>${g==='Alumni'?'<div class="ty">Thank you for your contribution</div>':''}</div></div>`;
+    }
+    h+='</div>';
+  }
+  document.getElementById('root').innerHTML=h;
+}
+(window.DEMO?Promise.resolve(window.DEMO):fetch(API).then(r=>r.json())).then(draw)
+ .catch(()=>{document.getElementById('root').innerHTML='';});
+</script>
+</body></html>

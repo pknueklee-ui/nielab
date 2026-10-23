@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIE LAB Publications</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
+a{color:#0000ff}
+.wrap{max-width:1160px;margin:0 auto;padding:4px 8px 32px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin:8px 0 28px}
+.total{font-family:Oswald;font-size:22px;text-transform:uppercase;letter-spacing:.5px}
+.total b{color:#0000ff;font-size:44px;font-weight:700;margin-right:6px}
+.links{font-size:13px;color:#616161;line-height:1.7;text-align:right}
+.legend{font-size:13px;color:#616161}
+nav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 30px}
+nav a{font-family:Oswald;font-size:15px;text-decoration:none;color:#1f1f1f;border:1px solid #e0e0e0;border-radius:4px;padding:3px 12px}
+nav a:hover{border-color:#0000ff;color:#0000ff}
+h2{font-family:Oswald;font-weight:400;font-size:34px;text-transform:uppercase;margin:44px 0 6px}
+h2 b{color:#0000ff;font-weight:700}
+h2 small{font-family:"Open Sans";font-size:14px;color:#9e9e9e;margin-left:10px;text-transform:none}
+.rule{width:56px;height:4px;background:#ff5252;margin:0 0 22px}
+.p{display:flex;gap:26px;padding:18px 0;border-bottom:1px solid #eee;align-items:flex-start}
+.n{font-family:Oswald;font-size:20px;color:#bdbdbd;min-width:34px;padding-top:2px}
+.img{flex:none;width:260px}
+.img img{width:100%;height:auto;border:1px solid #eee;border-radius:3px;background:#fafafa}
+.txt{font-size:13.5px;line-height:1.6}
+.au .me{font-weight:700;text-decoration:underline}
+.ti{font-weight:700;font-size:15px;margin:3px 0}
+.jo i{font-style:italic}
+.doi{font-size:12.5px}
+.old .p{padding:10px 0}
+@media(max-width:700px){.p{flex-direction:column;gap:10px}.img{width:100%;max-width:420px}.links{text-align:left}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="total" id="total">Loading…</div>
+    <div class="links">
+      <a href="https://scholar.google.com/citations?user=_ME8VaYAAAAJ" target="_blank" rel="noopener">Google Scholar</a> ·
+      <a href="https://orcid.org/0000-0001-5727-5716" target="_blank" rel="noopener">ORCID</a><br>
+      <span class="legend">* Corresponding author &nbsp; † Co-first author</span>
+    </div>
+  </div>
+  <nav id="nav"></nav>
+  <div id="list"></div>
+</div>
+<script>
+// Publications: Apps Script 웹앱(시트 「NIE LAB Publications」, 매일 OpenAlex·ORCID 확인)이 내주는 JSON을 그린다
+const API='https://script.google.com/macros/s/AKfycbwQ1zLyqlhWx-5i-VVdNoP1oInUUhwnRqPiLEOHH3Gw50bw8Gat0yg9bvZ90tz4OpHWyw/exec?type=pubs';
+const SPLIT=2022;
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const me=a=>esc(a).replace(/(E\. ?K\. ?Lee[*†,]*)/g,'<span class="me">$1</span>');
+function cite(p){
+  const vp=[p.v,p.p].filter(Boolean).join(', ');
+  return `<span class="jo"><i>${esc(p.j)}</i>${vp?' '+esc(vp):''} (${p.y})</span>`;
+}
+function item(p,n,withImg){
+  return `<div class="p"><div class="n">${n}</div>${withImg&&p.img?`<div class="img"><img src="${p.img}" alt="" loading="lazy"></div>`:''}
+  <div class="txt"><div class="au">${me(p.a)}</div><div class="ti">${esc(p.t)}</div>${cite(p)}
+  ${p.doi?`<div class="doi">DOI: <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">${esc(p.doi)}</a></div>`:''}</div></div>`;
+}
+function draw(d){
+  const ps=d.pubs; let n=ps.length;
+  document.getElementById('total').innerHTML=`<b>${ps.length}</b> Journal publications`;
+  const years=[...new Set(ps.filter(p=>p.y>=SPLIT).map(p=>p.y))].sort((a,b)=>b-a);
+  const old=ps.filter(p=>p.y<SPLIT);
+  document.getElementById('nav').innerHTML=years.map(y=>`<a href="#y${y}">${y}</a>`).join('')+(old.length?`<a href="#before">Before ${SPLIT}</a>`:'');
+  let h='';
+  for(const y of years){
+    const g=ps.filter(p=>p.y===y);
+    h+=`<h2 id="y${y}"><b>${String(y).slice(0,1)}</b>${String(y).slice(1)}<small>${g.length} papers</small></h2><div class="rule"></div>`;
+    h+=g.map(p=>item(p,n--,true)).join('');
+  }
+  if(old.length){
+    h+=`<h2 id="before"><b>B</b>efore ${SPLIT}<small>${old.length} papers</small></h2><div class="rule"></div><div class="old">`;
+    h+=old.map(p=>item(p,n--,false)).join('')+'</div>';
+  }
+  document.getElementById('list').innerHTML=h;
+}
+(window.DEMO?Promise.resolve(window.DEMO):fetch(API).then(r=>r.json())).then(draw)
+ .catch(()=>{document.getElementById('total').textContent='';});
+</script>
+</body>
+</html>
