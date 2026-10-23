@@ -18,6 +18,8 @@ if(window!==top){const wide=innerWidth>=700,z=()=>document.documentElement.style
 <style>html::-webkit-scrollbar{display:none}
 .pt{text-align:center;margin:6px 0 30px}.pt h1{font-family:Oswald,sans-serif;font-weight:400;font-size:58px;line-height:1.15;color:#212121;display:inline-block;padding:0 48px 4px;border-bottom:8px solid #ff5252}
 @media(max-width:700px){.pt h1{font-size:38px;padding:0 20px 2px;border-bottom-width:6px}}
+.ld{display:flex;align-items:center;justify-content:center;gap:14px;padding:70px 0;font-family:Oswald,sans-serif;font-size:24px;letter-spacing:1px;color:#616161}
+.sp{width:28px;height:28px;border:3px solid #e0e0e0;border-top-color:#0000ff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
 a{color:#0000ff}
 .wrap{max-width:1160px;margin:0 auto;padding:4px 8px 32px}
@@ -49,7 +51,7 @@ h2 small{font-family:"Open Sans";font-size:14px;color:#9e9e9e;margin-left:10px;t
 <body>
 <div class="wrap"><div class="pt"><h1>PUBLICATIONS</h1></div>
   <div class="top">
-    <div class="total" id="total">Loading…</div>
+    <div class="total" id="total"></div>
     <div class="links">
       <a href="https://scholar.google.com/citations?user=_ME8VaYAAAAJ" target="_blank" rel="noopener">Google Scholar</a> ·
       <a href="https://orcid.org/0000-0001-5727-5716" target="_blank" rel="noopener">ORCID</a> ·
@@ -59,7 +61,7 @@ h2 small{font-family:"Open Sans";font-size:14px;color:#9e9e9e;margin-left:10px;t
     </div>
   </div>
   <nav id="nav"></nav>
-  <div id="list"></div>
+  <div id="list"><div class="ld" id="ld"><span class="sp"></span>Loading…</div></div>
 </div>
 <script>
 // Publications: Apps Script 웹앱(시트 「NIE LAB Publications」, 매일 OpenAlex·ORCID 확인)이 내주는 JSON을 그린다
@@ -107,7 +109,7 @@ document.getElementById('nav').onclick=async e=>{const a=e.target.closest('a');i
   document.body.appendChild(p);p.scrollIntoView({block:'start'});p.remove();
 }
 (window.DEMO?Promise.resolve(window.DEMO):fetch(API).then(r=>r.json())).then(draw)
- .catch(()=>{document.getElementById('total').textContent='';});
+ .catch(()=>{document.getElementById('list').innerHTML='<div class="ld">Could not load. Please refresh the page.</div>';});
 </script>
 </body>
 </html>

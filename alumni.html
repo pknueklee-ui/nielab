@@ -13,6 +13,8 @@ if(window!==top){const wide=innerWidth>=700,z=()=>document.documentElement.style
 <style>html::-webkit-scrollbar{display:none}
 .pt{text-align:center;margin:6px 0 30px}.pt h1{font-family:Oswald,sans-serif;font-weight:400;font-size:58px;line-height:1.15;color:#212121;display:inline-block;padding:0 48px 4px;border-bottom:8px solid #ff5252}
 @media(max-width:700px){.pt h1{font-size:38px;padding:0 20px 2px;border-bottom-width:6px}}
+.ld{display:flex;align-items:center;justify-content:center;gap:14px;padding:70px 0;font-family:Oswald,sans-serif;font-size:24px;letter-spacing:1px;color:#616161}
+.sp{width:28px;height:28px;border:3px solid #e0e0e0;border-top-color:#0000ff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
 .wrap{max-width:1160px;margin:0 auto;padding:4px 8px 24px}
 .upd{text-align:right;font-family:Georgia,serif;font-style:italic;font-weight:700;font-size:17px;margin:8px 0 40px}
@@ -34,7 +36,7 @@ h2:first-of-type{margin-top:0}
 @media(max-width:800px){.two{grid-template-columns:1fr}}
 @media(max-width:640px){.m dl div{text-align:left}.m{flex-direction:column;gap:12px}h2{font-size:30px}}
 </style>
-<div class="wrap" id="root"></div>
+<div class="wrap" id="root"><div class="pt"><h1>ALUMNI</h1></div><div class="ld" id="ld"><span class="sp"></span>Loading…</div></div>
 <script>
 // Member/Alumni: Apps Script 웹앱(시트 Homepage 탭, 매시간 갱신)이 내주는 JSON을 그린다
 const API='https://script.google.com/macros/s/AKfycbwQ1zLyqlhWx-5i-VVdNoP1oInUUhwnRqPiLEOHH3Gw50bw8Gat0yg9bvZ90tz4OpHWyw/exec';
@@ -61,6 +63,6 @@ function draw(d){
   document.getElementById('root').innerHTML=h;
 }
 (window.DEMO?Promise.resolve(window.DEMO):fetch(API).then(r=>r.json())).then(draw)
- .catch(()=>{document.getElementById('root').innerHTML='';});
+ .catch(()=>{document.getElementById('ld').outerHTML='<div class="ld">Could not load. Please refresh the page.</div>';});
 </script>
 </body></html>
