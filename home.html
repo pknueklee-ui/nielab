@@ -96,6 +96,12 @@ iframe.emb{width:100%;border:0;display:block}
   let t;new ResizeObserver(()=>{clearTimeout(t);t=setTimeout(mk,400)}).observe(document.body);mk();
 })();
 </script>
+<script>
+// 휴대폰: 방문자 카운터는 원래 크기로 그리므로(counter.html) 상자 높이를 내용에 맞춘다
+setInterval(()=>{const f=document.querySelector('iframe[src="counter.html"]');if(!f)return;
+  if(!document.documentElement.classList.contains('compact')){f.style.height='';f.style.aspectRatio='1019/248';return}
+  try{const b=f.contentDocument.body;if(b){f.style.aspectRatio='auto';f.style.height=(b.offsetHeight+10)+'px'}}catch(e){}},800);
+</script>
 <script src="ko.js"></script>
 </body>
 </html>
