@@ -1,16 +1,18 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NIE LAB Alumni</title></head><body>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400&family=Open+Sans:wght@400;700&family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scrollbar-width:none}
 </style>
 <script>
 // Sites 삽입 상자는 폭에 비례해 높이가 바뀐다 → 안쪽도 1068px 기준으로 같은 비율로 확대·축소해 스크롤이 하나만 생기게 한다
-if(window!==top){const z=()=>document.documentElement.style.zoom=innerWidth/1068;z();addEventListener("resize",z);
-  // 좁은 화면용 배치(@media)는 쓰지 않는다: 확대·축소로 맞추므로 배치가 바뀌면 높이 비율이 깨진다
-  addEventListener("DOMContentLoaded",()=>[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule)s.deleteRule(i)}catch(e){}}))}
+if(window!==top){const wide=innerWidth>=700,z=()=>document.documentElement.style.zoom=innerWidth>=700?innerWidth/1068:1;z();addEventListener("resize",z);
+  // 넓은 화면: PC 배치를 상자 폭에 비례해 축소(@media 규칙 제거) / 휴대폰 폭: 원래 크기의 휴대폰 배치(상자 안 스크롤 허용)
+  if(wide)addEventListener("DOMContentLoaded",()=>[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule)s.deleteRule(i)}catch(e){}}))}
 </script>
 <style>html::-webkit-scrollbar{display:none}
+.pt{text-align:center;margin:6px 0 30px}.pt h1{font-family:Oswald,sans-serif;font-weight:400;font-size:58px;line-height:1.15;color:#212121;display:inline-block;padding:0 48px 4px;border-bottom:8px solid #ff5252}
+@media(max-width:700px){.pt h1{font-size:38px;padding:0 20px 2px;border-bottom-width:6px}}
 body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
 .wrap{max-width:1160px;margin:0 auto;padding:4px 8px 24px}
 .upd{text-align:right;font-family:Georgia,serif;font-style:italic;font-weight:700;font-size:17px;margin:8px 0 40px}
@@ -40,7 +42,7 @@ const GROUPS=['Alumni'];
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const row=(k,v)=>v?`<div><dt>${k}:</dt> <dd>${esc(v)}</dd></div>`:'';
 function draw(d){
-  let h=`<div class="upd">Updated on ${esc(d.updated)}</div>`;
+  let h=`<div class="pt"><h1>ALUMNI</h1></div><div class="upd">Updated on ${esc(d.updated)}</div>`;
   for(const g of GROUPS){
     const ms=d.members.filter(m=>m.group===g);
     if(!ms.length) continue;
