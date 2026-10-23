@@ -96,7 +96,11 @@ function draw(d){
   document.getElementById('list').innerHTML=h;
 }
 // 연도 버튼: 상자 밖(사이트 페이지)까지 그 연도로 스크롤
-document.getElementById('nav').onclick=e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth',block:'start'});
+// 그림이 늦게 불려 오면 위치가 밀리므로, 그림을 먼저 모두 불러온 뒤 이동한다
+document.getElementById('nav').onclick=async e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();
+  const im=[...document.images];im.forEach(i=>i.loading='eager');
+  await Promise.all(im.map(i=>i.complete?0:new Promise(r=>{i.onload=i.onerror=r})));
+  document.querySelector(a.getAttribute('href')).scrollIntoView({block:'start'});
 }
 (window.DEMO?Promise.resolve(window.DEMO):fetch(API).then(r=>r.json())).then(draw)
  .catch(()=>{document.getElementById('total').textContent='';});
