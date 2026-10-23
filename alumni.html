@@ -108,6 +108,6 @@ function draw(d){
 </script>
 <script>
 // 졸업생 지도 상자(같은 사이트의 almap.html)는 근황 카드 수에 따라 높이가 바뀌므로 안쪽 높이에 맞춘다
-setInterval(()=>{const f=document.querySelector('.almap');try{const h=f&&f.contentDocument.documentElement.scrollHeight;if(h)f.style.height=h+'px'}catch(e){}},800);
+setInterval(()=>{const f=document.querySelector('.almap');try{const h=f&&f.contentDocument.body.offsetHeight+8;if(h)f.style.height=h+'px'}catch(e){}},800);
 </script>
 </body></html>
