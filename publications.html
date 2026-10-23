@@ -83,14 +83,15 @@ const ini=g=>g.split(/[\s.\-]+|(?=[A-Z])/).filter(Boolean).map(t=>t[0].toLowerCa
 const akey=a=>{const t=a.replace(/[*†]/g,'').trim().split(/\s+/);const f=t.pop()||'';return [ini(t.join(' ')),f.toLowerCase()]};
 // 한쪽 이니셜이 한 글자뿐이면(예: "Y. Kim" ↔ YongHee Kim) 첫 글자로 비교하되, 멤버 중 같은 첫 글자·성이 한 명일 때만
 const isMem=a=>{const [i,f]=akey(a);return MEM.some(([mi,mf])=>mf===f&&(mi===i||((mi.length===1||i.length===1)&&i[0]===mi[0]&&MEM.filter(([x,y])=>y===f&&x[0]===mi[0]).length===1)))};
-const me=a=>String(a||'').split(/,\s*/).map(x=>/^E\. ?K\. ?Lee/.test(x)?`<span class="me">${esc(x)}</span>`:isMem(x)?`<b>${esc(x)}</b>`:esc(x)).join(', ');
+// 멤버 굵게는 연구실이 생긴 2022년 이후 논문에만(그 전 논문의 같은 이니셜은 다른 사람)
+const me=(a,y)=>String(a||'').split(/,\s*/).map(x=>/^E\. ?K\. ?Lee/.test(x)?`<span class="me">${esc(x)}</span>`:y>=SPLIT&&isMem(x)?`<b>${esc(x)}</b>`:esc(x)).join(', ');
 function cite(p){
   const vp=[p.v,p.p].filter(Boolean).join(', ');
   return `<span class="jo"><i>${esc(p.j)}</i>${vp?' '+esc(vp):''} (${p.y})</span>`;
 }
 function item(p,n,withImg){
   return `<div class="p"><div class="n">${n}</div>${withImg&&p.img?`<div class="img"><img src="${p.img}" alt="" loading="lazy"></div>`:''}
-  <div class="txt"><div class="au">${me(p.a)}</div><div class="ti">${esc(p.t)}</div>${cite(p)}
+  <div class="txt"><div class="au">${me(p.a,p.y)}</div><div class="ti">${esc(p.t)}</div>${cite(p)}
   ${p.doi?`<div class="doi">DOI: <a href="https://doi.org/${esc(p.doi)}" target="_blank" rel="noopener">${esc(p.doi)}</a></div>`:''}</div></div>`;
 }
 function draw(d){
