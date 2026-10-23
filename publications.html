@@ -81,7 +81,8 @@ const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&g
 let MEM=[];
 const ini=g=>g.split(/[\s.\-]+|(?=[A-Z])/).filter(Boolean).map(t=>t[0].toLowerCase()).join('');
 const akey=a=>{const t=a.replace(/[*†]/g,'').trim().split(/\s+/);const f=t.pop()||'';return [ini(t.join(' ')),f.toLowerCase()]};
-const isMem=a=>{const [i,f]=akey(a);return MEM.some(([mi,mf])=>mf===f&&(mi===i||(mi.length===1&&i[0]===mi)))};
+// 한쪽 이니셜이 한 글자뿐이면(예: "Y. Kim" ↔ YongHee Kim) 첫 글자로 비교하되, 멤버 중 같은 첫 글자·성이 한 명일 때만
+const isMem=a=>{const [i,f]=akey(a);return MEM.some(([mi,mf])=>mf===f&&(mi===i||((mi.length===1||i.length===1)&&i[0]===mi[0]&&MEM.filter(([x,y])=>y===f&&x[0]===mi[0]).length===1)))};
 const me=a=>String(a||'').split(/,\s*/).map(x=>/^E\. ?K\. ?Lee/.test(x)?`<span class="me">${esc(x)}</span>`:isMem(x)?`<b>${esc(x)}</b>`:esc(x)).join(', ');
 function cite(p){
   const vp=[p.v,p.p].filter(Boolean).join(', ');
