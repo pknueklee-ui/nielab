@@ -74,7 +74,7 @@ const OLD=[
   ['2025','Graduation',[1]],
   ['2024','Lab photo',[2,3]],['2024','Conference',[5,6]],['2024','Cherry blossom outing',[7]],['2024','Bowling night',[8,13]],
   ['2024','Lab dinner',[12,14]],['2024','Lab seminar',[4,9,11,15,16,17]],['2024','Experimenting',[10]],
-  ['2023','Industry–Academia Cooperation EXPO award',[19]],['2023','Lab workshop',[22,23,24]],['2023','Lab dinner',[18,21]],['2023','Lab seminar',[20,25]]
+  ['2023.05.22','Lab startup program orientation',[27]],['2023','Industry–Academia Cooperation EXPO award',[19]],['2023','Lab workshop',[22,23,24]],['2023','Lab dinner',[18,21]],['2023','Lab seminar',[20,25]]
 ].map(([d,n,ids])=>({d,n,ph:ids.map(i=>[G+String(i).padStart(2,'0')+'.jpg'])}));
 const PER=12,esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const sz=(u,s)=>/googleusercontent/.test(u)?u+'='+s:u;
