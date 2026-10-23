@@ -87,9 +87,9 @@ function draw(d){
   const vis=new Map();let st=[];
   const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.set(e.target,e.intersectionRect):vis.delete(e.target));
     if(!vis.size)return;let bot=0,tp=1e9;vis.forEach(r=>{bot=Math.max(bot,r.bottom);tp=Math.min(tp,r.top)});
-    const z=parseFloat(document.documentElement.style.zoom)||1;b.style.top=(bot/z+scrollY-70)+'px';b.classList.toggle('on',tp/z+scrollY>500)},{threshold:[0,.25,.5,.75,1]});
-  const mk=()=>{st.forEach(s=>{io.unobserve(s);s.remove()});st=[];vis.clear();const H=document.documentElement.scrollHeight;
-    for(let y=0;y<H;y+=120){const s=document.createElement('div');s.className='stp';s.style.top=y+'px';document.body.appendChild(s);st.push(s);io.observe(s)}};
+    const z=parseFloat(document.documentElement.style.zoom)||1;window.__tt=[bot,tp,z,scrollY,vis.size];b.style.top=(bot/z+scrollY-70)+'px';b.classList.toggle('on',tp/z+scrollY>500)},{threshold:[0,.25,.5,.75,1]});
+  const mk=()=>{st.forEach(s=>{io.unobserve(s);s.remove()});st=[];vis.clear();const w=document.querySelector('.wrap')||document.body,H=w.offsetTop+w.offsetHeight;
+    for(let y=0;y<H;y+=120){const s=document.createElement('div');s.className='stp';s.style.top=y+'px';s.style.height=Math.min(120,H-y)+'px';document.body.appendChild(s);st.push(s);io.observe(s)}};
   let t;new ResizeObserver(()=>{clearTimeout(t);t=setTimeout(mk,400)}).observe(document.body);mk();
 })();
 </script>
