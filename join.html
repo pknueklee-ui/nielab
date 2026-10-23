@@ -11,12 +11,17 @@ html{scrollbar-width:none}
 </style>
 <script>
 // Sites 삽입 상자는 폭에 비례해 높이가 바뀐다 → 넓은 화면은 1068px 기준으로 같은 비율로 확대·축소, 휴대폰은 원래 크기의 휴대폰 배치
-if(window!==top){const wide=innerWidth>=700,z=()=>document.documentElement.style.zoom=innerWidth>=700?innerWidth/1068:1;z();addEventListener("resize",z);
-  // 사이트가 상자를 처음엔 좁게 띄웠다가 넓히는 경우가 있어, PC↔휴대폰 기준(700px)을 넘으면 다시 그린다
-  addEventListener("resize",()=>{if((innerWidth>=700)!==wide)location.reload()});
-  // 휴대폰 폭에서는 사이트 상자가 낮아 전체가 안 들어가므로 핵심만 보이고, 전체는 새 창으로 연다
-  if(!wide)document.documentElement.classList.add('compact');
-  if(wide)addEventListener("DOMContentLoaded",()=>[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule)s.deleteRule(i)}catch(e){}}))}
+if(window!==top){
+  // 사이트 삽입 상자는 폭에 비례해 높이가 바뀌고, 처음엔 좁게 떴다가 넓어지기도 한다 → 폭이 바뀔 때마다 다시 맞춘다
+  // 넓은 화면(≥700): 1068px 기준으로 확대·축소하고 휴대폰용 @media 규칙을 끈다 / 휴대폰: 원래 크기 + 휴대폰 배치(.compact)
+  const R=[];let mode=null;
+  const ap=()=>{const w=innerWidth>=700,d=document.documentElement;
+    d.style.zoom=w?innerWidth/1068:1;d.classList.toggle('compact',!w);
+    if(w===mode)return;mode=w;
+    if(w)[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule){R.push([s,s.cssRules[i].cssText]);s.deleteRule(i)}}catch(e){}});
+    else R.splice(0).forEach(([s,t])=>{try{s.insertRule(t,s.cssRules.length)}catch(e){}});};
+  ap();addEventListener("resize",ap);addEventListener("DOMContentLoaded",()=>{mode=null;ap()});
+}
 </script>
 <style>html::-webkit-scrollbar{display:none}
 body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
