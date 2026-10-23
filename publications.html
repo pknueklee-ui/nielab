@@ -103,7 +103,7 @@ document.getElementById('nav').onclick=async e=>{const a=e.target.closest('a');i
   // 확대·축소(zoom) 상태에서는 scrollIntoView가 확대 전 위치로 가므로, 확대 후 위치에 표지(probe)를 두고 그쪽으로 이동한다
   const el=document.querySelector(a.getAttribute('href')),z=parseFloat(document.documentElement.style.zoom)||1;
   let y=0;for(let n=el;n;n=n.offsetParent)y+=n.offsetTop;
-  const p=document.createElement('div');p.style.cssText=`position:absolute;left:0;top:${y*z}px;height:1px;width:1px`;
+  const p=document.createElement('div');p.style.cssText=`position:absolute;left:0;top:${y*z-70}px;height:1px;width:1px`;
   document.body.appendChild(p);p.scrollIntoView({block:'start'});p.remove();
 }
 (window.DEMO?Promise.resolve(window.DEMO):fetch(API).then(r=>r.json())).then(draw)
