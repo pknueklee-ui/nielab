@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NIE LAB Spotlight</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scrollbar-width:none}
+</style>
+<script>
+// Sites 삽입 상자는 폭에 비례해 높이가 바뀐다 → 넓은 화면은 1068px 기준으로 같은 비율로 확대·축소, 휴대폰은 옆으로 넘기는 카드
+if(window!==top){
+  // 사이트 삽입 상자는 폭에 비례해 높이가 바뀌고, 처음엔 좁게 떴다가 넓어지기도 한다 → 폭이 바뀔 때마다 다시 맞춘다
+  // 넓은 화면(≥700): 1068px 기준으로 확대·축소하고 휴대폰용 @media 규칙을 끈다 / 휴대폰: 원래 크기 + 휴대폰 배치(.compact)
+  const R=[];let mode=null;
+  const ap=()=>{const w=innerWidth>=700,d=document.documentElement;
+    d.style.zoom=w?innerWidth/1068:1;d.classList.toggle('compact',!w);
+    if(w===mode)return;mode=w;
+    if(w)[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule){R.push([s,s.cssRules[i].cssText]);s.deleteRule(i)}}catch(e){}});
+    else R.splice(0).forEach(([s,t])=>{try{s.insertRule(t,s.cssRules.length)}catch(e){}});};
+  ap();addEventListener("resize",ap);addEventListener("DOMContentLoaded",()=>{mode=null;ap()});
+}
+</script>
+<style>html::-webkit-scrollbar{display:none}
+body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
+.wrap{max-width:1160px;margin:0 auto;padding:4px 8px 12px}
+.hd{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 18px}
+.hd h2{font-family:Oswald,sans-serif;font-weight:400;font-size:30px;text-transform:uppercase;letter-spacing:.5px}
+.hd span{font-family:Oswald,sans-serif;font-size:17px;color:#757575}
+.card{display:flex;gap:34px;align-items:center;border:1px solid #e6e6e6;border-radius:6px;padding:26px 30px;min-height:230px}
+.card img,.card .ph{width:170px;height:170px;border-radius:50%;object-fit:cover;object-position:50% 45%;flex:none;background:#eee;box-shadow:0 0 0 1px #e0e0e0}
+.nm{font-family:Oswald,sans-serif;font-size:28px;margin-bottom:10px}
+.qa{font-size:14.5px;line-height:1.6;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.qa b{color:#ff5252;font-weight:700;margin-right:6px}
+.ld{display:flex;align-items:center;justify-content:center;gap:12px;height:230px;font-family:Oswald,sans-serif;font-size:22px;color:#616161}
+.sp{width:26px;height:26px;border:3px solid #e0e0e0;border-top-color:#0000ff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.compact .hd{margin:0 0 8px}.compact .hd h2{font-size:20px}.compact .hd span{font-size:13px}
+.compact .card{gap:14px;padding:12px;min-height:0;align-items:flex-start}
+.compact .card img,.compact .card .ph{width:72px;height:72px}
+.compact .nm{font-size:18px;margin-bottom:2px}.compact .qa{font-size:12px;-webkit-line-clamp:3;margin-bottom:0}.compact .qa~.qa{display:none}
+.compact .ld{height:120px;font-size:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hd"><h2>Student spotlight</h2><span id="mo"></span></div>
+  <div id="box"><div class="ld"><span class="sp"></span>Loading…</div></div>
+</div>
+<script>
+// 대문·Member용: 웹앱 ?type=spot. 승인된 학생 인터뷰(설문 → 시트 「NIE LAB Spotlight·Alumni 응답」 승인 탭 Y)를 달마다 한 명씩 돌려 보여 준다.
+// 아직 인터뷰가 없으면 연구 분야를 적은 재학생 중 한 명을 달마다 소개한다.
+const API='https://script.google.com/macros/s/AKfycbwQ1zLyqlhWx-5i-VVdNoP1oInUUhwnRqPiLEOHH3Gw50bw8Gat0yg9bvZ90tz4OpHWyw/exec?type=spot';
+const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const qa=(k,v)=>v?`<p class="qa"><b>${k}</b>${esc(v)}</p>`:'';
+const now=new Date(),mi=now.getFullYear()*12+now.getMonth();
+document.getElementById('mo').textContent=now.toLocaleString('en-US',{month:'long',year:'numeric'});
+fetch(API).then(r=>r.json()).then(d=>{
+  const L=d.spot.length?d.spot:d.cands,s=L[mi%L.length];
+  const ph=s.photo?`<img src="${s.photo}" alt="${esc(s.en)}">`:'<div class="ph"></div>';
+  document.getElementById('box').innerHTML=`<div class="card">${ph}<div><p class="nm">${esc(s.en)}</p>`+
+    (d.spot.length?qa('My research',s.research)+qa('Best part of lab life',s.enjoy)+qa('Tip for future members',s.tip)+qa('Fun fact',s.fun)
+                  :qa('Research',s.research)+qa('Hobby',s.hobby))+'</div></div>';
+}).catch(()=>{document.getElementById('box').innerHTML='<div class="ld">Could not load. Please refresh the page.</div>'});
+</script>
+</body>
+</html>

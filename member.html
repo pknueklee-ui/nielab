@@ -25,6 +25,7 @@ if(window!==top){
 .sp{width:28px;height:28px;border:3px solid #e0e0e0;border-top-color:#0000ff;border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
 body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
 .wrap{max-width:1160px;margin:0 auto;padding:4px 8px 24px}
+.spotf{display:block;width:100%;border:0;aspect-ratio:1068/340;margin:0 0 40px}
 .upd{text-align:right;font-family:Georgia,serif;font-style:italic;font-weight:700;font-size:17px;margin:8px 0 40px}
 h2{font-size:42px;font-weight:700;margin:56px 0 44px 8px}
 h2:first-of-type{margin-top:0}
@@ -52,7 +53,7 @@ const GROUPS=['Research Professor','Students']; // Alumni 페이지에서는 ['A
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const row=(k,v)=>v?`<div><dt>${k}:</dt> <dd>${esc(v)}</dd></div>`:'';
 function draw(d){
-  let h=`<div class="pt"><h1>MEMBER</h1></div><div class="upd">Updated on ${esc(d.updated)}</div>`;
+  let h=`<div class="pt"><h1>MEMBER</h1></div><div class="upd">Updated on ${esc(d.updated)}</div><iframe class="spotf" src="spot.html" title="Student spotlight"></iframe>`;
   for(const g of GROUPS){
     const ms=d.members.filter(m=>m.group===g);
     if(!ms.length) continue;
