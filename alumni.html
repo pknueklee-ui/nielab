@@ -73,4 +73,24 @@ function draw(d){
 (window.DEMO?Promise.resolve(window.DEMO):fetch(API).then(r=>r.json())).then(draw)
  .catch(()=>{document.getElementById('ld').outerHTML='<div class="ld">Could not load. Please refresh the page.</div>';});
 </script>
+<style>
+#totop{position:absolute;right:18px;width:46px;height:46px;border-radius:50%;border:0;background:rgba(33,33,33,.85);color:#fff;font-size:22px;line-height:46px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .2s,top .15s;z-index:20}
+#totop.on{opacity:1;pointer-events:auto}#totop.fx{position:fixed;bottom:20px}
+.stp{position:absolute;left:0;width:1px;height:120px;pointer-events:none}
+</style>
+<script>
+// 맨 위로 버튼: 사이트 삽입 상자 안이라 화면 고정(fixed)이 안 된다. 120px 간격 표지(.stp)를 IntersectionObserver로 지켜
+// 지금 화면에 보이는 범위의 아래쪽에 버튼을 옮겨 둔다(값은 상자 화면 px → zoom으로 나눠 문서 좌표로)
+(()=>{const b=document.createElement('button');b.id='totop';b.setAttribute('aria-label','Back to top');b.textContent='↑';document.body.appendChild(b);
+  const go=()=>{(document.querySelector('.wrap')||document.body).scrollIntoView({block:'start'});if(window===top)scrollTo({top:0,behavior:'smooth'})};b.onclick=go;
+  if(window===top){b.classList.add('fx');addEventListener('scroll',()=>b.classList.toggle('on',scrollY>600));return}
+  const vis=new Map();let st=[];
+  const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.set(e.target,e.intersectionRect):vis.delete(e.target));
+    if(!vis.size)return;let bot=0,tp=1e9;vis.forEach(r=>{bot=Math.max(bot,r.bottom);tp=Math.min(tp,r.top)});
+    const z=parseFloat(document.documentElement.style.zoom)||1;b.style.top=(bot/z+scrollY-70)+'px';b.classList.toggle('on',tp/z+scrollY>500)},{threshold:[0,.25,.5,.75,1]});
+  const mk=()=>{st.forEach(s=>{io.unobserve(s);s.remove()});st=[];vis.clear();const H=document.documentElement.scrollHeight;
+    for(let y=0;y<H;y+=120){const s=document.createElement('div');s.className='stp';s.style.top=y+'px';document.body.appendChild(s);st.push(s);io.observe(s)}};
+  let t;new ResizeObserver(()=>{clearTimeout(t);t=setTimeout(mk,400)}).observe(document.body);mk();
+})();
+</script>
 </body></html>

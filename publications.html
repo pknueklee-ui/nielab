@@ -37,7 +37,8 @@ a{color:#0000ff}
 .links{font-size:13px;color:#616161;line-height:1.7;text-align:right}
 .legend{font-size:13px;color:#616161}
 nav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 30px}
-nav a{font-family:Oswald;font-size:15px;text-decoration:none;color:#1f1f1f;border:1px solid #e0e0e0;border-radius:4px;padding:3px 12px}
+nav a{font-family:Oswald;font-size:15px;text-decoration:none;color:#1f1f1f;border:1px solid #e0e0e0;border-radius:4px;padding:3px 12px;display:flex;flex-direction:column;align-items:center;line-height:1.3}
+nav a small{font-family:"Open Sans",sans-serif;font-size:11px;color:#757575}
 nav a:hover{border-color:#0000ff;color:#0000ff}
 h2{font-family:Oswald;font-weight:400;font-size:34px;text-transform:uppercase;margin:44px 0 6px}
 h2 b{color:inherit;font-weight:inherit}
@@ -100,7 +101,8 @@ function draw(d){
   document.getElementById('upd').textContent=`Updated on ${d.updated}`;
   const years=[...new Set(ps.filter(p=>p.y>=SPLIT).map(p=>p.y))].sort((a,b)=>b-a);
   const old=ps.filter(p=>p.y<SPLIT);
-  document.getElementById('nav').innerHTML=years.map(y=>`<a href="#y${y}">${y}</a>`).join('')+(old.length?`<a href="#before">Before ${SPLIT}</a>`:'');
+  const cnt=n=>`<small>${n} paper${n>1?'s':''}</small>`;
+  document.getElementById('nav').innerHTML=years.map(y=>`<a href="#y${y}">${y}${cnt(ps.filter(p=>p.y===y).length)}</a>`).join('')+(old.length?`<a href="#before">Before ${SPLIT}${cnt(old.length)}</a>`:'');
   let h='';
   for(const y of years){
     const g=ps.filter(p=>p.y===y);
@@ -128,6 +130,26 @@ document.getElementById('nav').onclick=async e=>{const a=e.target.closest('a');i
 fetch(API.replace('type=pubs','type=stats')).then(r=>r.json()).then(d=>{MEM=(d.names||[]).map(n=>{const t=n.trim().split(/\s+/);const f=t.pop();return [ini(t.join(' ')),f.toLowerCase()]})}).catch(()=>{})
  .then(()=>window.DEMO?window.DEMO:fetch(API).then(r=>r.json())).then(draw)
  .catch(()=>{document.getElementById('list').innerHTML='<div class="ld">Could not load. Please refresh the page.</div>';});
+</script>
+<style>
+#totop{position:absolute;right:18px;width:46px;height:46px;border-radius:50%;border:0;background:rgba(33,33,33,.85);color:#fff;font-size:22px;line-height:46px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .2s,top .15s;z-index:20}
+#totop.on{opacity:1;pointer-events:auto}#totop.fx{position:fixed;bottom:20px}
+.stp{position:absolute;left:0;width:1px;height:120px;pointer-events:none}
+</style>
+<script>
+// 맨 위로 버튼: 사이트 삽입 상자 안이라 화면 고정(fixed)이 안 된다. 120px 간격 표지(.stp)를 IntersectionObserver로 지켜
+// 지금 화면에 보이는 범위의 아래쪽에 버튼을 옮겨 둔다(값은 상자 화면 px → zoom으로 나눠 문서 좌표로)
+(()=>{const b=document.createElement('button');b.id='totop';b.setAttribute('aria-label','Back to top');b.textContent='↑';document.body.appendChild(b);
+  const go=()=>{(document.querySelector('.wrap')||document.body).scrollIntoView({block:'start'});if(window===top)scrollTo({top:0,behavior:'smooth'})};b.onclick=go;
+  if(window===top){b.classList.add('fx');addEventListener('scroll',()=>b.classList.toggle('on',scrollY>600));return}
+  const vis=new Map();let st=[];
+  const io=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.set(e.target,e.intersectionRect):vis.delete(e.target));
+    if(!vis.size)return;let bot=0,tp=1e9;vis.forEach(r=>{bot=Math.max(bot,r.bottom);tp=Math.min(tp,r.top)});
+    const z=parseFloat(document.documentElement.style.zoom)||1;b.style.top=(bot/z+scrollY-70)+'px';b.classList.toggle('on',tp/z+scrollY>500)},{threshold:[0,.25,.5,.75,1]});
+  const mk=()=>{st.forEach(s=>{io.unobserve(s);s.remove()});st=[];vis.clear();const H=document.documentElement.scrollHeight;
+    for(let y=0;y<H;y+=120){const s=document.createElement('div');s.className='stp';s.style.top=y+'px';document.body.appendChild(s);st.push(s);io.observe(s)}};
+  let t;new ResizeObserver(()=>{clearTimeout(t);t=setTimeout(mk,400)}).observe(document.body);mk();
+})();
 </script>
 </body>
 </html>
