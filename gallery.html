@@ -102,7 +102,7 @@ lb.onclick=e=>{if(e.target.matches('.pv'))open(cur,ci-1);else if(e.target.matche
 lb.querySelector('img').onclick=e=>{e.stopPropagation();if(cur.ph.length>1)open(cur,ci+1)};
 addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowLeft')open(cur,ci-1);if(e.key==='ArrowRight')open(cur,ci+1)});
 fetch(API+'?type=gallery').then(r=>r.json()).then(d=>d.events).catch(()=>[]).then(ev=>{
-  EV=ev.concat(OLD).sort((a,b)=>b.d.slice(0,4)-a.d.slice(0,4));
+  EV=ev.concat(OLD).sort((a,b)=>b.d>a.d?1:b.d<a.d?-1:0); // 최신순, 연도만 아는 옛 사진은 그해 맨 뒤
   const ys=[...new Set(EV.map(e=>e.d.slice(0,4)))];
   document.getElementById('yrs').innerHTML=ys.map(y=>`<button data-y="${y}">${y}<small>${(n=>n+' event'+(n>1?'s':''))(EV.filter(e=>e.d.slice(0,4)===y).length)}</small></button>`).join('');
   year=ys[0];show();
