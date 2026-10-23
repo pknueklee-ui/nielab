@@ -12,6 +12,8 @@ html{scrollbar-width:none}
 <script>
 // Sites 삽입 상자는 폭에 비례해 높이가 바뀐다 → 안쪽도 1068px 기준으로 같은 비율로 확대·축소해 스크롤이 하나만 생기게 한다
 if(window!==top){const wide=innerWidth>=700,z=()=>document.documentElement.style.zoom=innerWidth>=700?innerWidth/1068:1;z();addEventListener("resize",z);
+  // 사이트가 상자를 처음엔 좁게 띄웠다가 넓히는 경우가 있어, PC↔휴대폰 기준(700px)을 넘으면 다시 그린다
+  addEventListener("resize",()=>{if((innerWidth>=700)!==wide)location.reload()});
   // 넓은 화면: PC 배치를 상자 폭에 비례해 축소(@media 규칙 제거) / 휴대폰 폭: 원래 크기의 휴대폰 배치(상자 안 스크롤 허용)
   if(wide)addEventListener("DOMContentLoaded",()=>[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule)s.deleteRule(i)}catch(e){}}))}
 </script>

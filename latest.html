@@ -12,6 +12,8 @@ html{scrollbar-width:none}
 <script>
 // Sites 삽입 상자는 폭에 비례해 높이가 바뀐다 → 넓은 화면은 1068px 기준으로 같은 비율로 확대·축소, 휴대폰은 옆으로 넘기는 카드
 if(window!==top){const wide=innerWidth>=700,z=()=>document.documentElement.style.zoom=innerWidth>=700?innerWidth/1068:1;z();addEventListener("resize",z);
+  // 사이트가 상자를 처음엔 좁게 띄웠다가 넓히는 경우가 있어, PC↔휴대폰 기준(700px)을 넘으면 다시 그린다
+  addEventListener("resize",()=>{if((innerWidth>=700)!==wide)location.reload()});
   if(wide)addEventListener("DOMContentLoaded",()=>[...document.styleSheets].forEach(s=>{try{for(let i=s.cssRules.length-1;i>=0;i--)if(s.cssRules[i] instanceof CSSMediaRule)s.deleteRule(i)}catch(e){}}))}
 </script>
 <style>html::-webkit-scrollbar{display:none}
