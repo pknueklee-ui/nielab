@@ -110,10 +110,11 @@ function draw(d){
 document.getElementById('nav').onclick=async e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();
   const im=[...document.images];im.forEach(i=>i.loading='eager');
   await Promise.all(im.map(i=>i.complete?0:new Promise(r=>{i.onload=i.onerror=r})));
-  // 확대·축소(zoom) 상태에서는 scrollIntoView가 확대 전 위치로 가므로, 확대 후 위치에 표지(probe)를 두고 그쪽으로 이동한다
+  // 제목 바로 위에 표지(probe)를 두고 그쪽으로 이동한다. 브라우저가 zoom을 반영하므로 위치는 zoom 전 값(y)을 쓰고,
+  // 여백만 실제 화면 px로 맞춘다(휴대폰은 사이트 상단 막대 높이만큼 70px, PC는 24px)
   const el=document.querySelector(a.getAttribute('href')),z=parseFloat(document.documentElement.style.zoom)||1;
   let y=0;for(let n=el;n;n=n.offsetParent)y+=n.offsetTop;
-  const p=document.createElement('div');p.style.cssText=`position:absolute;left:0;top:${y*z-70}px;height:1px;width:1px`;
+  const p=document.createElement('div');p.style.cssText=`position:absolute;left:0;top:${y-(innerWidth<700?70:24)/z}px;height:1px;width:1px`;
   document.body.appendChild(p);p.scrollIntoView({block:'start'});p.remove();
 }
 (window.DEMO?Promise.resolve(window.DEMO):fetch(API).then(r=>r.json())).then(draw)
