@@ -7,7 +7,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html{scrollbar-width:none}html::-webkit-scrollbar{display:none}
+html{scrollbar-width:none}
+</style>
+<script>
+// Sites 삽입 상자는 폭에 비례해 높이가 바뀐다 → 안쪽도 1068px 기준으로 같은 비율로 확대·축소해 스크롤이 하나만 생기게 한다
+if(window!==top){const z=()=>document.documentElement.style.zoom=innerWidth/1068;z();addEventListener("resize",z)}
+</script>
+<style>html::-webkit-scrollbar{display:none}
 body{background:#fff;font-family:"Open Sans",Arial,sans-serif;color:#212121}
 a{color:#0000ff}
 .wrap{max-width:1160px;margin:0 auto;padding:4px 8px 32px}
