@@ -45,6 +45,7 @@ h2:first-of-type{margin-top:0}
 .m dl div{margin-bottom:8px;text-align:justify}
 .pc{display:flex;flex-direction:column;align-items:center;gap:14px;flex:none}
 .mb{font-family:Oswald,sans-serif;font-size:15px;letter-spacing:.5px;color:#0000ff;background:#fff;border:1.5px solid #0000ff;border-radius:3px;padding:5px 16px;cursor:pointer}
+.pc .lk{margin-top:-6px}
 .mb:hover{background:#0000ff;color:#fff}
 #memo{position:absolute;z-index:30;left:50%;transform:translateX(-50%);width:min(860px,96%);background:#fff;border-radius:6px;box-shadow:0 10px 40px rgba(0,0,0,.28);display:none}
 #memo.on{display:block}
@@ -63,6 +64,7 @@ h2:first-of-type{margin-top:0}
 </style>
 <div class="wrap" id="root"><div class="pt"><h1>ALUMNI</h1></div><div class="ld" id="ld"><span class="sp"></span>Loading…</div></div>
 <script src="memoirs.js"></script>
+<script src="like.js"></script>
 <script>
 // Member/Alumni: Apps Script 웹앱(시트 Homepage 탭, 매시간 갱신)이 내주는 JSON을 그린다
 const API='https://script.google.com/macros/s/AKfycbwQ1zLyqlhWx-5i-VVdNoP1oInUUhwnRqPiLEOHH3Gw50bw8Gat0yg9bvZ90tz4OpHWyw/exec';
@@ -80,7 +82,7 @@ function draw(d){
       const period=g==='Alumni'?(m.start?`${m.start} – ${m.end}`:''):(m.start?`${m.start} ~`:'');
       const ph=m.photo?`<img src="${m.photo}" alt="${esc(m.en)}" loading="lazy">`:'<div class="ph"></div>';
       const mo=window.MEMOIRS&&MEMOIRS[m.name];
-      h+=`<div class="m">${mo?`<div class="pc">${ph}<button class="mb" data-k="${esc(m.name)}" data-en="${esc(m.en)}">Read memoir</button></div>`:ph}<div>
+      h+=`<div class="m">${mo?`<div class="pc">${ph}<button class="mb" data-k="${esc(m.name)}" data-en="${esc(m.en)}">Read memoir</button>${NIELIKE.html('m:'+m.name)}</div>`:ph}<div>
         <h3>${esc(m.name)}, ${esc(m.en)}</h3><dl>
         ${row('Hobby',m.hobby)}${row('Research interest',m.research)}
         ${row(g==='Alumni'?'Period':'Starting from',period)}${row('Current affiliation',m.affil)}
@@ -95,7 +97,7 @@ function draw(d){
   const show=(k,en)=>{const mo=MEMOIRS[k];
     let ps=mo.en.map((t,i)=>`<p>${esc(t)}</p><p class="kr">${esc(mo.ko[i]||'')}</p>`).join('');
     if(mo.song)ps+=`<div class="sg"><p>${esc(mo.song.en)}</p><p class="kr">${esc(mo.song.ko)}</p></div>`;
-    box.innerHTML=`<div class="hd"><h4>Memoir — ${esc(en)} <span class="kn">${esc(k)}</span></h4>
+    box.innerHTML=`<div class="hd"><h4>Memoir — ${esc(en)} <span class="kn">${esc(k)}</span></h4>${NIELIKE.html('m:'+k)}
       <button class="x" aria-label="Close">×</button></div><div class="bd">${ps}</div>`;};
   const close=()=>box.classList.remove('on');
   document.addEventListener('click',e=>{
