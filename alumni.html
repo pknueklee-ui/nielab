@@ -70,6 +70,10 @@ h2:first-of-type{margin-top:0}
 const API='https://script.google.com/macros/s/AKfycbwQ1zLyqlhWx-5i-VVdNoP1oInUUhwnRqPiLEOHH3Gw50bw8Gat0yg9bvZ90tz4OpHWyw/exec';
 const GROUPS=['Alumni'];
 const esc=s=>String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// 신청서 원본 증명사진(pa)은 세로로 길고 얼굴이 위쪽에 있다 → 폭의 78% 정사각형을 위에서 4.7% 지점부터 잘라 원 안에 얼굴이 가운데 오게 한다
+const fitFace=img=>{const go=()=>{const w=img.naturalWidth,h=img.naturalHeight;if(!w||h/w<1.1)return;const s=Math.round(w*.78),c=document.createElement('canvas');c.width=c.height=s;
+  c.getContext('2d').drawImage(img,(w-s)/2,h*.047,s,s,0,0,s,s);img.removeAttribute('data-auto');img.src=c.toDataURL('image/jpeg',.9)};img.complete?go():img.addEventListener('load',go,{once:true})};
+new MutationObserver(()=>document.querySelectorAll('img[data-auto]').forEach(fitFace)).observe(document.body,{childList:true,subtree:true});
 const row=(k,v)=>v?`<div><dt>${k}:</dt> <dd>${esc(v)}</dd></div>`:'';
 function draw(d){
   let h=`<div class="pt"><h1>ALUMNI</h1></div><div class="upd">Updated on ${esc(d.updated)}</div><iframe class="almap" src="almap.html" title="Where our alumni are"></iframe>`;
@@ -80,11 +84,11 @@ function draw(d){
     h+=`<div class="${g==='Alumni'?'two':''}">`;
     for(const m of ms){
       const period=g==='Alumni'?(m.start?`${m.start} – ${m.end}`:''):(m.start?`${m.start} ~`:'');
-      const ph=m.photo?`<img src="${m.photo}" alt="${esc(m.en)}" loading="lazy">`:'<div class="ph"></div>';
+      const ph=m.photo?`<img src="${m.photo}" alt="${esc(m.en)}" loading="lazy"${m.pa?' data-auto':''}>`:'<div class="ph"></div>';
       const mo=window.MEMOIRS&&MEMOIRS[m.name];
       h+=`<div class="m">${mo?`<div class="pc">${ph}<button class="mb" data-k="${esc(m.name)}" data-en="${esc(m.en)}">Read memoir</button>${NIELIKE.html('m:'+m.name)}</div>`:ph}<div>
         <h3>${esc(m.name)}, ${esc(m.en)}</h3><dl>
-        ${row('Hobby',m.hobby)}${row('Research interest',m.research)}
+        ${row('Hobby',m.hobby)}${m.good||m.mbti?`<div><dt>${m.good?'Specialty':'MBTI'}:</dt> <dd>${esc(m.good||m.mbti)}${m.good&&m.mbti?' &nbsp;·&nbsp; <b>MBTI</b> '+esc(m.mbti):''}</dd></div>`:''}${row('Research interest',m.research)}${row('Goal at NIE LAB',m.goal)}
         ${row(g==='Alumni'?'Period':'Starting from',period)}${row('Current affiliation',m.affil)}
         </dl>${g==='Alumni'?'<div class="ty">Thank you for your contribution</div>':''}</div></div>`;
     }
