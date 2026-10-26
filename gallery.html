@@ -97,7 +97,7 @@ document.getElementById('out').onclick=e=>{const p=e.target.closest('.pg button'
 const lb=document.getElementById('lb');let cur,ci;
 function open(e,i){cur=e;ci=(i+e.ph.length)%e.ph.length;
   lb.querySelector('img').src=sz(e.ph[ci][0],'w1600');
-  lb.querySelector('.cap').innerHTML=esc(e.n||e.d)+(e.d.length>4?' · '+esc(e.d):'')+' &nbsp;('+(ci+1)+' / '+e.ph.length+')'+(e.ph[ci][3]?`<a href="${esc(e.ph[ci][3])}" target="_blank" rel="noopener">Original ↗</a>`:e.link?`<a href="${esc(e.link)}" target="_blank" rel="noopener">Album ↗</a>`:'')+' '+NIELIKE.html(gid(e));
+  lb.querySelector('.cap').innerHTML=esc(e.n||e.d)+(e.d.length>4?' · '+esc(e.d):'')+' &nbsp;('+(ci+1)+' / '+e.ph.length+')'+' '+NIELIKE.html(gid(e));
   lb.querySelector('.pv').style.display=lb.querySelector('.nx').style.display=e.ph.length>1?'':'none';
   if(window!==top&&window.__vr){lb.style.position='absolute';lb.style.top=window.__vr[0]+'px';lb.style.bottom='auto';lb.style.height=(window.__vr[1]-window.__vr[0])+'px'}
   lb.classList.add('on')}
