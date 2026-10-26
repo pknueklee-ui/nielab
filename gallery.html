@@ -104,6 +104,20 @@ function open(e,i){cur=e;ci=(i+e.ph.length)%e.ph.length;
 lb.onclick=e=>{if(e.target.matches('.pv'))open(cur,ci-1);else if(e.target.matches('.nx'))open(cur,ci+1);else if(!e.target.closest('a'))lb.classList.remove('on')};
 lb.querySelector('img').onclick=e=>{e.stopPropagation();if(cur.ph.length>1)open(cur,ci+1)};
 addEventListener('keydown',e=>{if(!lb.classList.contains('on'))return;if(e.key==='Escape')lb.classList.remove('on');if(e.key==='ArrowLeft')open(cur,ci-1);if(e.key==='ArrowRight')open(cur,ci+1)});
+// 카드 미리보기: 마우스를 올리면(휴대폰은 카드가 화면에 보이면) 그 행사 사진이 1.5초마다 표지 자리에서 넘어가고, 벗어나면 첫 사진으로 돌아간다
+const PLAY=new Map(),cover=v=>sz(EV[+v.dataset.i].ph[0][0],'w640-h480-c');
+const play=v=>{const e=EV[+v.dataset.i];if(PLAY.has(v)||!e||e.ph.length<2)return;const img=v.querySelector('.cv img');let k=0;
+  PLAY.set(v,setInterval(()=>{if(!v.isConnected){clearInterval(PLAY.get(v));PLAY.delete(v);return}
+    k=(k+1)%e.ph.length;const u=sz(e.ph[k][0],'w640-h480-c'),p=new Image();p.onload=()=>{if(PLAY.has(v))img.src=u};p.src=u},1500))};
+const stop=v=>{if(!PLAY.has(v))return;clearInterval(PLAY.get(v));PLAY.delete(v);v.querySelector('.cv img').src=cover(v)};
+const outEl=document.getElementById('out');
+if(matchMedia('(hover:hover)').matches){
+  outEl.addEventListener('mouseover',x=>{const v=x.target.closest('.ev');if(v)play(v)});
+  outEl.addEventListener('mouseout',x=>{const v=x.target.closest('.ev');if(v&&!v.contains(x.relatedTarget))stop(v)});
+}else{
+  const io=new IntersectionObserver(es=>es.forEach(x=>x.isIntersecting?play(x.target):stop(x.target)),{threshold:.6});
+  new MutationObserver(()=>outEl.querySelectorAll('.ev').forEach(v=>io.observe(v))).observe(outEl,{childList:true});
+}
 fetch(API+'?type=gallery').then(r=>r.json()).then(d=>d.events).catch(()=>[]).then(ev=>{
   EV=ev.concat(OLD).sort((a,b)=>b.d>a.d?1:b.d<a.d?-1:0); // 최신순, 연도만 아는 옛 사진은 그해 맨 뒤
   const ys=[...new Set(EV.map(e=>e.d.slice(0,4)))];
