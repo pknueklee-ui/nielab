@@ -33,16 +33,23 @@ const TXT=[
  ['분자가 경계를 넘어 퍼집니다. 물에 잉크가 번지는 것과 같은 확산입니다.','Molecules cross the boundary and spread, like ink in water.'],
  ['계면 근처의 분자가 줄을 맞춰 섭니다. 이 배열이 물질의 성질을 바꿉니다.','Near the interface, molecules line up. This order changes what the material can do.']];
 const T=[5,7,7,2.5], CYCLE=T.reduce((a,b)=>a+b);
-let W,H,d,L,mols=[],mouse={x:-1e4,y:-1e4},clock=0,shown=-1;
+let W,H,d,L,COLS,ROWS,mols=[],mouse={x:-1e4,y:-1e4},clock=0,shown=-1,assigned=false;
 function init(){
   d=devicePixelRatio||1;W=cv.width=cv.offsetWidth*d;H=cv.height=cv.offsetHeight*d;L=H*0.42;
-  const cols=Math.max(16,Math.round(W/(26*d))),rows=5,n=cols*rows;
-  mols=[];
-  for(let i=0;i<n;i++){
-    const c=i%cols,r=i/cols|0;
-    mols.push({x:Math.random()*W,y:Math.random()*L*0.9+L*0.05,a:Math.random()*Math.PI,vx:0,vy:0,va:0,
-      tx:(c+0.5)*W/cols, ty:L+H*0.09+r*H*0.1, crossed:false});
+  COLS=Math.max(16,Math.round(W/(26*d)));ROWS=5;const n=COLS*ROWS;
+  mols=[];assigned=false;
+  for(let i=0;i<n;i++)
+    mols.push({x:Math.random()*W,y:Math.random()*L*0.9+L*0.05,a:Math.random()*Math.PI,vx:0,vy:0,va:0,tx:0,ty:0});
+}
+// 배열 시작 순간, 지금 있는 자리에서 가장 가까운 격자점을 준다(왼쪽 분자는 왼쪽 열, 위 분자는 위 행).
+// x 순으로 ROWS개씩 묶어 열을, 각 열 안에서 y 순으로 행을 정하므로 서로 엇갈려 가로지르지 않는다.
+function assign(){
+  const byX=[...mols].sort((a,b)=>a.x-b.x);
+  for(let c=0;c<COLS;c++){
+    const col=byX.slice(c*ROWS,(c+1)*ROWS).sort((a,b)=>a.y-b.y);
+    col.forEach((m,r)=>{m.tx=(c+0.5)*W/COLS;m.ty=L+H*0.09+r*H*0.1;});
   }
+  assigned=true;
 }
 function scene(s){ // 0 contact,1 diffusion,2 ordering,3 melt
   let k=0;for(let i=0;i<4;i++){if(s<T[i])return [i,s/T[i]];s-=T[i];}return [3,1];
@@ -51,6 +58,7 @@ function tick(){  // 장면 시간은 프레임 수로 센다(탭이 느려져�
   clock+=1/60;
   const s=clock%CYCLE,[ph,p]=scene(s);
   if(ph===0&&p<0.02&&shown!==0)init();
+  if(ph===2&&!assigned)assign();
   const label=ph===3?2:ph;
   if(label!==shown){shown=label;steps.forEach((e,i)=>e.classList.toggle('on',i===label));ex.innerHTML=TXT[label][0]+'<small>'+TXT[label][1]+'</small>';}
 
